@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BTLQuanLyCH", "BTLQuanLyCH\BTLQuanLyCH.csproj", "{BA17C012-07E9-4BC7-B346-C50573F5ADC9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BTLQuanLyCH", "BTLQuanLyCH\BTLQuanLyCH.csproj", "{9B8FFA7E-8805-4BA6-98E5-3447A9B104A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BA17C012-07E9-4BC7-B346-C50573F5ADC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BA17C012-07E9-4BC7-B346-C50573F5ADC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BA17C012-07E9-4BC7-B346-C50573F5ADC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BA17C012-07E9-4BC7-B346-C50573F5ADC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B8FFA7E-8805-4BA6-98E5-3447A9B104A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B8FFA7E-8805-4BA6-98E5-3447A9B104A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B8FFA7E-8805-4BA6-98E5-3447A9B104A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B8FFA7E-8805-4BA6-98E5-3447A9B104A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {08D26B50-DDF7-4536-9BF5-C44CADBC5C64}
+		SolutionGuid = {15392DE2-7CE5-482C-B1F6-BDA31284BEF3}
 	EndGlobalSection
 EndGlobal

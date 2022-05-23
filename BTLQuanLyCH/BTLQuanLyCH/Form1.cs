@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace BTLQuanLyCH
 {
-    public partial class frmDangNhap : Form
+    public partial class Form1 : Form
     {
-        public frmDangNhap()
+        public Form1()
         {
             InitializeComponent();
         }
