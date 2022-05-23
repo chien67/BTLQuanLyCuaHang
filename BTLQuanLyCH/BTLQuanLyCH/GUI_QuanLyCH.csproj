@@ -46,11 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="frmDangNhap.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="frmDangNhap.Designer.cs">
+      <DependentUpon>frmDangNhap.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -75,6 +75,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BUS_QuanLyCH\BUS_QuanLyCH.csproj">
+      <Project>{4995ad52-71ac-4365-a9ce-e28f180164dc}</Project>
+      <Name>BUS_QuanLyCH</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DTO_QuanLyCH\DTO_QuanLyCH.csproj">
+      <Project>{7d4baa3f-cdef-42d9-b157-fb4b4555072f}</Project>
+      <Name>DTO_QuanLyCH</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
