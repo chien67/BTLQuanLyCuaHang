@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BTLQuanLyCH
+namespace GUI_QuanLyCH
 {
     public partial class frmDangNhap : Form
     {
