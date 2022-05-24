@@ -16,7 +16,7 @@ namespace GUI_QuanLyCH
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ());
+            Application.Run(new frmDangNhap());
         }
     }
 }
