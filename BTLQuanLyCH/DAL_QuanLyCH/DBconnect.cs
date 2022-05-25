@@ -8,5 +8,6 @@ namespace DAL_QuanLyCH
 {
     internal class DBconnect
     {
+
     }
 }
