@@ -59,3 +59,44 @@ create table BillInfo
 	foreign key (idFood) references dbo.Food(id),
 )
 go
+    insert into dbo.Account
+(
+	UserName,
+	DisplayName,
+	Password,
+	Type
+)
+Values
+(
+N'Quynh01',
+N'Vũ Thị Quỳnh',
+N'123',
+1
+)    insert into dbo.Account
+(
+	UserName,
+	DisplayName,
+	Password,
+	Type
+)
+Values
+(
+N'Chien01',
+N'Nguyễn Văn Chiến',
+N'123',
+1
+)
+    insert into dbo.Account
+(
+	UserName,
+	DisplayName,
+	Password,
+	Type
+)
+Values
+(
+N'Duc01',
+N'Phạm Việt Đức',
+N'123',
+1
+)
