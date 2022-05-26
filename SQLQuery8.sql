@@ -1,4 +1,4 @@
-﻿USE BTLT3
+﻿use BTLT3
 go
 -- ThucAn
 -- Ban
