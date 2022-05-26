@@ -35,6 +35,7 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.btnLogin = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnExit = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -74,20 +75,20 @@
             // 
             this.textBox1.Location = new System.Drawing.Point(338, 135);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(165, 20);
+            this.textBox1.Size = new System.Drawing.Size(190, 20);
             this.textBox1.TabIndex = 3;
             // 
             // textBox2
             // 
             this.textBox2.Location = new System.Drawing.Point(338, 176);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(165, 20);
+            this.textBox2.Size = new System.Drawing.Size(190, 20);
             this.textBox2.TabIndex = 4;
             // 
             // btnLogin
             // 
             this.btnLogin.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLogin.Location = new System.Drawing.Point(314, 229);
+            this.btnLogin.Location = new System.Drawing.Point(242, 217);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(142, 35);
             this.btnLogin.TabIndex = 5;
@@ -104,6 +105,18 @@
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             // 
+            // btnExit
+            // 
+            this.btnExit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnExit.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExit.Location = new System.Drawing.Point(402, 217);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(126, 35);
+            this.btnExit.TabIndex = 7;
+            this.btnExit.Text = "Thoát";
+            this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -117,9 +130,12 @@
             // 
             // frmDangNhap
             // 
+            this.AcceptButton = this.btnLogin;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnExit;
             this.ClientSize = new System.Drawing.Size(551, 318);
+            this.Controls.Add(this.btnExit);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.textBox2);
@@ -128,7 +144,9 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "frmDangNhap";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Đăng nhập";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmDangNhap_FormClosing);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -146,5 +164,6 @@
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button btnExit;
     }
 }
