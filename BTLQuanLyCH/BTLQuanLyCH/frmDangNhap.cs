@@ -17,18 +17,6 @@ namespace GUI_QuanLyCH
         {
             InitializeComponent();
         }
-        private bool isSuccess = false;
-        public string getEmail
-        {
-            get
-            {
- //               return txtEmail.Text;
-            }
-        }
-        public bool getSuccess
-        {
-            get { return isSuccess; }
-        }
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
