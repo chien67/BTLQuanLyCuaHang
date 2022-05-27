@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DAL_QuanLyCH;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,10 +20,23 @@ namespace GUI_QuanLyCH
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-           fTableManager f = new fTableManager();
-            this.Hide();
-            f.ShowDialog();
-            this.Show();
+            string userName = txbUsername.Text;
+            string passWord = txbPassWord.Text;
+            if (Login(userName, passWord))
+            {
+                fTableManager f = new fTableManager();
+                this.Hide();
+                f.ShowDialog();
+                this.Show();
+            }
+            else
+            {
+                MessageBox.Show("Sai thông tin đăng nhập!");
+            }
+        }
+        bool Login(string userName, string passWord)
+        {
+            return Account.Instance.Login(userName, passWord);
         }
 
         private void btnExit_Click(object sender, EventArgs e)

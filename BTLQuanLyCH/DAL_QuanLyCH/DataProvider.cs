@@ -18,15 +18,16 @@ namespace DAL_QuanLyCH
         }
         private DataProvider() { }
 
-        private string connectionSTR = @"Data Source=DESKTOP-1PR9O2T\SQLEXPRESS;Initial Catalog=BTLT3;User ID = sa; Password = 123456";
+        private string connectionString = @"Data Source = DESKTOP-E3B836B\SQLEXPRESS;Initial Catalog=BTLT3;User ID = sa; Password = 123456";
 
         public DataTable ExecuteQuery(string query, object[] parameter = null)
         {
             DataTable data = new DataTable();
-            using (SqlConnection connection = new SqlConnection(connectionSTR))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                SqlCommand command = new SqlCommand(query, connection); 
+                SqlCommand command = new SqlCommand(query, connection);
+
                 if (parameter != null)
                 {
                     string[] listPara = query.Split(' ');
@@ -46,13 +47,12 @@ namespace DAL_QuanLyCH
                 connection.Close();
             }
             return data;
-                
         }
         public int ExecuteNonQuery(string query, object[] parameter = null)
         {
             int data = 0;
 
-            using (SqlConnection connection = new SqlConnection(connectionSTR))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
                 SqlCommand command = new SqlCommand(query, connection);
@@ -76,11 +76,11 @@ namespace DAL_QuanLyCH
             return data;
 
         }
-        public object ExecuteScalar (string query, object[] parameter = null)
+        public object ExecuteScalar(string query, object[] parameter = null)
         {
             object data = 0;
 
-            using (SqlConnection connection = new SqlConnection(connectionSTR))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
                 SqlCommand command = new SqlCommand(query, connection);
@@ -102,7 +102,6 @@ namespace DAL_QuanLyCH
                 connection.Close();
             }
             return data;
-
         }
     }
 }
