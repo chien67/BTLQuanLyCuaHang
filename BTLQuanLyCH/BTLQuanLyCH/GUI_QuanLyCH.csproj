@@ -108,9 +108,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BUS_QuanLyCH\BUS_QuanLyCH.csproj">
-      <Project>{4995ad52-71ac-4365-a9ce-e28f180164dc}</Project>
-      <Name>BUS_QuanLyCH</Name>
+    <ProjectReference Include="..\DAL_QuanLyCH\DAL_QuanLyCH.csproj">
+      <Project>{8923c99a-ddab-42e1-899e-bbaacb8453ca}</Project>
+      <Name>DAL_QuanLyCH</Name>
     </ProjectReference>
     <ProjectReference Include="..\DTO_QuanLyCH\DTO_QuanLyCH.csproj">
       <Project>{7d4baa3f-cdef-42d9-b157-fb4b4555072f}</Project>

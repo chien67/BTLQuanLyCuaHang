@@ -171,7 +171,7 @@
             this.Controls.Add(this.label2);
             this.Name = "fAccountProfile";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "fAccountProfile";
+            this.Text = "Thông tin cá nhân";
             this.ResumeLayout(false);
             this.PerformLayout();
 

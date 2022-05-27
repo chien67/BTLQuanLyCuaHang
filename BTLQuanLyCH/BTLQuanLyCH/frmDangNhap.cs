@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using BUS_QuanLyCH;
 
 namespace GUI_QuanLyCH
 {

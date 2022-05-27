@@ -1,4 +1,4 @@
-﻿using DTO_QuanLyCH;
+﻿using DAL_QuanLyCH;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,14 +22,14 @@ namespace GUI_QuanLyCH
         void LoadFoodList()
         {
             string query = "select * from dbo.Food";
-
-            dtgvAccount.DataSource = DataProvider.Instance.ExcuteQuery(query);
+ 
+            dtgvAccount.DataSource = DataProvider.Instance.ExecuteQuery(query);
         }
         void LoadAccountList()
         {
             string query = "exec dbo.getInfo @userName";
 
-            dtgvAccount.DataSource = DataProvider.Instance.ExcuteQuery(query, new object[] {"Chien01"});
+            dtgvAccount.DataSource = DataProvider.Instance.ExecuteQuery(query, new object[] { "Chien01" });
         }
     }
 }
