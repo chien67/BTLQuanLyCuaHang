@@ -19,11 +19,17 @@ namespace GUI_QuanLyCH
             InitializeComponent();
             LoadAccountList();
         }
+        void LoadFoodList()
+        {
+            string query = "select * from dbo.Food";
+
+            dtgvAccount.DataSource = DataProvider.Instance.ExcuteQuery(query);
+        }
         void LoadAccountList()
         {
-            string query = "select * from dbo.Account";
-            DataProvider provider = new DataProvider();
-            dtgvAccount.DataSource = provider.ExcuteQuery(query);
+            string query = "exec dbo.getInfo @userName";
+
+            dtgvAccount.DataSource = DataProvider.Instance.ExcuteQuery(query, new object[] {"Chien01"});
         }
     }
 }

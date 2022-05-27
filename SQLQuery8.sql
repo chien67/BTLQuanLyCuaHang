@@ -100,3 +100,13 @@ N'Phạm Việt Đức',
 N'123',
 1
 )
+go
+
+create proc getInfo
+@userName nvarchar(100)
+AS
+BEGIN
+	select *from dbo.Account where UserName = @userName
+End
+go
+exec dbo.getInfo @userName = N'Chien01'
