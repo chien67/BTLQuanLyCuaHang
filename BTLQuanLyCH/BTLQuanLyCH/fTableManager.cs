@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using DAL_QuanLyCH;
+using DTO_QuanLyCH;
 namespace GUI_QuanLyCH
 {
     public partial class fTableManager : Form
@@ -15,8 +16,21 @@ namespace GUI_QuanLyCH
         public fTableManager()
         {
             InitializeComponent();
+            LoadTable();
         }
+        #region Method
+        void LoadTable()
+        {
+            List<Table> tableList = DAL_Table.Instance.LoadTableList();
+            foreach (Table item in tableList)
+            {
+                Button btn = new Button() { Width = (int)DAL_Table.TableWidth, Height = (int)DAL_Table.TableHeight };
+                flpTable.Controls.Add(btn);
+            }
+        }
+        #endregion
 
+        #region Event
         private void đăngXuấtToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -33,5 +47,6 @@ namespace GUI_QuanLyCH
             fAdmin f = new fAdmin();
             f.ShowDialog();
         }
+        #endregion
     }
 }

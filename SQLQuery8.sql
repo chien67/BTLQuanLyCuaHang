@@ -110,3 +110,29 @@ BEGIN
 End
 go
 exec dbo.getInfo @userName = N'Chien01'
+
+go
+
+create proc USP_login
+@userName nvarchar(100), @passWord nvarchar(100)
+as
+begin
+	select * from dbo.Account where UserName = @userName and Password = @passWord
+end
+go
+
+declare @i int = 0
+
+while @i <= 10
+begin 
+	insert dbo.TableFood (name) values (N'Bàn ' + CAST (@i as nvarchar(100)))
+	set @i = @i + 1
+end
+
+go
+
+create proc USP_GetTableList
+as select * from dbo.TableFood
+go
+
+exec dbo.USP_GetTableList

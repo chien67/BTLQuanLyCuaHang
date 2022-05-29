@@ -20,8 +20,9 @@ namespace DAL_QuanLyCH
 
         public bool Login(string userName, string passWord)
         {
-            string query = "select *from dbo.Account where UserName = N'" + userName + "' AND PassWord = N'" + passWord + "' ";
-            DataTable result = DataProvider.Instance.ExecuteQuery(query);
+            string query = "USP_login @username , @password";
+
+            DataTable result = DataProvider.Instance.ExecuteQuery(query,new object[] { userName, passWord });
             return result.Rows.Count >0;
         }
     }
