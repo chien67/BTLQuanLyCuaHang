@@ -18,8 +18,8 @@ namespace DAL_QuanLyCH
             private set { DAL_Table.instance = value; }
         }
 
-        public static double TableWidth = 50;
-        public static double TableHeight = 50;
+        public static int TableWidth = 120;
+        public static int TableHeight = 120;
         private DAL_Table() { }
 
         public List<Table> LoadTableList()

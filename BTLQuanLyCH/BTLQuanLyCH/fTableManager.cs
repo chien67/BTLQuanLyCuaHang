@@ -24,7 +24,18 @@ namespace GUI_QuanLyCH
             List<Table> tableList = DAL_Table.Instance.LoadTableList();
             foreach (Table item in tableList)
             {
-                Button btn = new Button() { Width = (int)DAL_Table.TableWidth, Height = (int)DAL_Table.TableHeight };
+                Button btn = new Button() { Width = DAL_Table.TableWidth, Height = DAL_Table.TableHeight };
+                btn.Text = item.Name + Environment.NewLine + item.Status;
+
+                switch (item.Status)
+                {
+                    case "Trống":
+                        btn.BackColor = Color.LightYellow;
+                        break;
+                    default:
+                        btn.BackColor = Color.Pink;
+                        break;
+                }
                 flpTable.Controls.Add(btn);
             }
         }

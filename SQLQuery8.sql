@@ -135,4 +135,7 @@ create proc USP_GetTableList
 as select * from dbo.TableFood
 go
 
+UPDATE dbo.TableFood set status = N'Có người' where id = 9
+
 exec dbo.USP_GetTableList
+
