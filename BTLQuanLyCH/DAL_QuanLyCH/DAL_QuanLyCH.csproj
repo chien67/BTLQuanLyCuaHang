@@ -43,8 +43,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account.cs" />
+    <Compile Include="BillDAL.cs" />
+    <Compile Include="BillInfoDAL.cs" />
     <Compile Include="DAL_Table.cs" />
     <Compile Include="DataProvider.cs" />
+    <Compile Include="MenuDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

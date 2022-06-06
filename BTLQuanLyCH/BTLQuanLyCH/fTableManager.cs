@@ -26,6 +26,8 @@ namespace GUI_QuanLyCH
             {
                 Button btn = new Button() { Width = DAL_Table.TableWidth, Height = DAL_Table.TableHeight };
                 btn.Text = item.Name + Environment.NewLine + item.Status;
+                btn.Click += Btn_Click;
+                btn.Tag = item;
 
                 switch (item.Status)
                 {
@@ -39,9 +41,30 @@ namespace GUI_QuanLyCH
                 flpTable.Controls.Add(btn);
             }
         }
+        void ShowBill(int id)
+        {
+            lsvBill.Items.Clear();
+            List<DTO_QuanLyCH.Menu> listBillInfo = MenuDAL.Instance.GetListMenuByTable(id);
+            
+            foreach (DTO_QuanLyCH.Menu item in listBillInfo)
+            {
+                ListViewItem lsvItem = new ListViewItem(item.FoodName.ToString());
+                lsvItem.SubItems.Add(item.Count.ToString());
+                lsvItem.SubItems.Add(item.Count.ToString());
+                lsvItem.SubItems.Add(item.TotalPrice.ToString());
+
+                lsvBill.Items.Add(lsvItem);
+            }
+        }
+
         #endregion
 
         #region Event
+        private void Btn_Click(object sender, EventArgs e)
+        {
+            int tableID = ((sender as Button).Tag as Table).ID;
+            ShowBill(tableID);
+        }
         private void đăngXuấtToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();

@@ -138,4 +138,70 @@ go
 UPDATE dbo.TableFood set status = N'Có người' where id = 9
 
 exec dbo.USP_GetTableList
+go
+-- loại thức ăn
+insert dbo.FoodCategory(name)
+--name- nvarchar(100)
+values(N'Hải sản')
+insert dbo.FoodCategory(name)
+values(N'Nông sản')
+insert dbo.FoodCategory(name)
+values(N'Lâm Sản')
+insert dbo.FoodCategory(name)
+values(N'Nước')
 
+-- thêm thức ăn
+insert dbo.Food
+--name nvarchar(100), idCategory- int, price-int
+values(N'Vịt quay',1,100000)
+insert dbo.Food
+values(N'Ức gà',2,50000)
+insert dbo.Food
+values(N'Dê núi',3,120000)
+insert dbo.Food
+values(N'Cá rán',4,100000)
+insert dbo.Food
+values(N'sushi',5,50000)
+insert dbo.Food
+values(N'Canh ngao',9,50000)
+insert dbo.Food
+values(N'Đậu lướt ván',8,30000)
+insert dbo.Food
+values(N'7Up',6,10000)
+insert dbo.Food
+values(N'pepsi',7,10000)
+insert dbo.Food
+values(N'Volka',12,120000)
+insert dbo.Food
+values(N'Lợn quay',10,200000)
+insert dbo.Food
+values(N'Tôm',11,60000)
+
+-- thêm bill
+insert dbo.Bill
+--checkin, checkout- date, idTable-int, status-int
+values(GETDATE(),GETDATE(),2,1)
+insert dbo.Bill
+values(GETDATE(),GETDATE(),1,0)
+insert dbo.Bill
+values(GETDATE(),GETDATE(),1,1)
+
+-- thêm billinfo
+insert dbo.BillInfo
+--idBill-int, idFood -int,count-int
+values(4,2,1)
+insert dbo.BillInfo
+values(4,2,3)
+insert dbo.BillInfo
+values(2,1,3)
+insert dbo.BillInfo
+values(2,1,3)
+insert dbo.BillInfo
+values(2,1,3) 
+
+select f.name, bi.count, f.price, f.price*bi.count AS totalPrice from dbo.BillInfo AS bi, dbo.Bill ASb, dbo.Food AS f
+where bi.idBill = b.id AND bi.idFood = f.id AND b.idTable =3
+
+select * from dbo.BillInfo
+select * from dbo.Food
+select * from dbo.FoodCategory
