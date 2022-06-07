@@ -21,7 +21,7 @@ namespace DAL_QuanLyCH
         public List<Menu> GetListMenuByTable(int id)
         {
             List<Menu> listMenu = new List<Menu>();
-            string query = "select f.name, bi.count, f.price, f.price*bi.count AS totalPrice from dbo.BillInfo AS bi, dbo.Bill ASb, dbo.Food AS f where bi.idBill = b.id AND bi.idFood = f.id AND b.idTable = " + id;
+            string query = "select f.name, bi.count, f.price, f.price*bi.count AS totalPrice from dbo.BillInfo AS bi, dbo.Bill AS b, dbo.Food AS f where bi.idBill = b.id and bi.idFood = f.id and b.idTable =" + id;
 
             DataTable data = DataProvider.Instance.ExecuteQuery(query);
 

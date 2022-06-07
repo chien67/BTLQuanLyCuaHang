@@ -199,8 +199,8 @@ values(2,1,3)
 insert dbo.BillInfo
 values(2,1,3) 
 
-select f.name, bi.count, f.price, f.price*bi.count AS totalPrice from dbo.BillInfo AS bi, dbo.Bill ASb, dbo.Food AS f
-where bi.idBill = b.id AND bi.idFood = f.id AND b.idTable =3
+select f.name, bi.count, f.price, f.price*bi.count AS totalPrice from dbo.BillInfo AS bi, dbo.Bill AS b, dbo.Food AS f
+where bi.idBill = b.id and bi.idFood = f.id and b.idTable =1
 
 select * from dbo.BillInfo
 select * from dbo.Food

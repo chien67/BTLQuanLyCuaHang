@@ -21,8 +21,8 @@ namespace DTO_QuanLyCH
         {
             this.FoodName = row["Name"].ToString();
             this.Count = (int)row["count"];
-            this.Price = (float)row["price"];
-            this.TotalPrice = (float)row["totalPrice"];
+            this.Price = (float)Convert.ToDouble(row["price"].ToString());
+            this.TotalPrice = (float)Convert.ToDouble(row["totalPrice"].ToString());
         }
         private string foodName;
         private int count;
