@@ -45,6 +45,7 @@
     <Compile Include="Account.cs" />
     <Compile Include="BillDAL.cs" />
     <Compile Include="BillInfoDAL.cs" />
+    <Compile Include="CategoryDAL.cs" />
     <Compile Include="DAL_Table.cs" />
     <Compile Include="DataProvider.cs" />
     <Compile Include="MenuDAL.cs" />

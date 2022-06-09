@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,8 +18,18 @@ namespace GUI_QuanLyCH
         {
             InitializeComponent();
             LoadTable();
+            LoadCategory();
         }
         #region Method
+
+        void LoadCategory()
+        {
+
+        }
+        void LoadFoodListByCategoryID(int id)
+        {
+
+        }
         void LoadTable()
         {
             List<Table> tableList = DAL_Table.Instance.LoadTableList();
@@ -45,16 +56,18 @@ namespace GUI_QuanLyCH
         {
             lsvBill.Items.Clear();
             List<DTO_QuanLyCH.Menu> listBillInfo = MenuDAL.Instance.GetListMenuByTable(id);
-            
+            float totalPrice = 0;
             foreach (DTO_QuanLyCH.Menu item in listBillInfo)
             {
                 ListViewItem lsvItem = new ListViewItem(item.FoodName.ToString());
                 lsvItem.SubItems.Add(item.Count.ToString());
                 lsvItem.SubItems.Add(item.Count.ToString());
                 lsvItem.SubItems.Add(item.TotalPrice.ToString());
-
+                totalPrice += item.TotalPrice;
                 lsvBill.Items.Add(lsvItem);
             }
+            CultureInfo culture = new CultureInfo("vi-VN");
+            txbTotalPrice.Text = totalPrice.ToString("c",culture);
         }
 
         #endregion
@@ -81,6 +94,13 @@ namespace GUI_QuanLyCH
             fAdmin f = new fAdmin();
             f.ShowDialog();
         }
+        private void cbCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int id = 0;
+            LoadFoodListByCategoryID(id);
+        }
         #endregion
+
+
     }
 }
