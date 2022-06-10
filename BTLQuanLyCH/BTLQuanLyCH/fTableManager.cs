@@ -24,11 +24,15 @@ namespace GUI_QuanLyCH
 
         void LoadCategory()
         {
-
+            List<Category> listCategory = CategoryDAL.Instance.GetListCategory();
+            cbCategory.DataSource = listCategory;
+            cbCategory.DisplayMember = "Name";
         }
         void LoadFoodListByCategoryID(int id)
         {
-
+            List<Food> listFood = FoodDAL.Instance.GetFoodByCategoryID(id);
+            cbFood.DataSource = listFood;
+            cbFood.DisplayMember = "Name";
         }
         void LoadTable()
         {
@@ -76,6 +80,7 @@ namespace GUI_QuanLyCH
         private void Btn_Click(object sender, EventArgs e)
         {
             int tableID = ((sender as Button).Tag as Table).ID;
+            lsvBill.Tag = (sender as Button).Tag;
             ShowBill(tableID);
         }
         private void đăngXuấtToolStripMenuItem_Click(object sender, EventArgs e)
@@ -97,7 +102,19 @@ namespace GUI_QuanLyCH
         private void cbCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
             int id = 0;
+            ComboBox cb = sender as ComboBox;
+
+            if (cb.SelectedItem == null)
+                return;
+
+            Category selected = cb.SelectedItem as Category;
+            id = selected.ID;
+
             LoadFoodListByCategoryID(id);
+        }
+        private void btnAddFood_Click(object sender, EventArgs e)
+        {
+
         }
         #endregion
 

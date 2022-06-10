@@ -21,7 +21,8 @@ namespace DAL_QuanLyCH
         public List<Category> GetListCategory()
         {
             List<Category> list = new List<Category>();
-            string query = "select * from Category";
+            string query = "select * from FoodCategory";
+
             DataTable data = DataProvider.Instance.ExecuteQuery(query);
             foreach (DataRow item in data.Rows)
             {

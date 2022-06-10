@@ -30,6 +30,10 @@ namespace DAL_QuanLyCH
 
             return -1;
         }
+        public void IncertBill()
+        {
+
+        }
 
     }
 }

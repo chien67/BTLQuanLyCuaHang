@@ -48,6 +48,7 @@
     <Compile Include="CategoryDAL.cs" />
     <Compile Include="DAL_Table.cs" />
     <Compile Include="DataProvider.cs" />
+    <Compile Include="FoodDAL.cs" />
     <Compile Include="MenuDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
