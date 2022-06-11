@@ -198,10 +198,41 @@ insert dbo.BillInfo
 values(2,1,3)
 insert dbo.BillInfo
 values(2,1,3) 
+go
+create proc USP_InsertBill
+@idTable int
+as
+begin
+	insert dbo.Bill(DateCheckIn, DateCheckOut, idTable, status)
+	values (GETDATE(),GETDATE(), @idTable, 0)
+end
+go
+alter proc USP_InsertBillInfo
+@idBill int, @idFood int ,@count int
+as
+begin
+	declare @isExitBillInfo int
+	declare @foodCount int = 1
 
-select f.name, bi.count, f.price, f.price*bi.count AS totalPrice from dbo.BillInfo AS bi, dbo.Bill AS b, dbo.Food AS f
-where bi.idBill = b.id and bi.idFood = f.id and b.idTable =1
+	select @isExitBillInfo = id, @foodCount = b.count from dbo.BillInfo AS b where idBill = @idBill and idFood = @idFood
 
-select * from dbo.BillInfo
-select * from dbo.Food
-select * from dbo.FoodCategory
+	if (@isExitBillInfo > 0)
+	begin
+		declare @newCount int = @foodCount + @count
+		if (@newCount > 0)
+			
+			update dbo.BillInfo set count = @foodCount + @count where idFood = @idFood
+		else
+			delete dbo.BillInfo where idBill = @idBill and idFood= @idFood
+	end
+	else
+	begin
+	insert dbo.BillInfo(idBill, idFood, count)
+
+	values (@idBill, @idFood, @count)
+	end
+end
+go
+
+
+

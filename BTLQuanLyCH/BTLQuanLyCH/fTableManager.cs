@@ -114,7 +114,21 @@ namespace GUI_QuanLyCH
         }
         private void btnAddFood_Click(object sender, EventArgs e)
         {
+            Table table = lsvBill.Tag as Table;
 
+            int idBill = BillDAL.Instance.GetUncheckBillIDByTableID(table.ID);
+            int foodID = (cbFood.SelectedItem as Food).ID;
+            int count = (int)nmFoodCount.Value;
+
+            if (idBill == -1)
+            {
+                BillDAL.Instance.InsertBill(table.ID);
+                BillInfoDAL.Instance.InsertBillInfo(BillDAL.Instance.GetMaxIDBill(), foodID, count);
+            }
+            else
+            {
+                BillInfoDAL.Instance.InsertBillInfo(idBill, foodID, count);
+            }
         }
         #endregion
 

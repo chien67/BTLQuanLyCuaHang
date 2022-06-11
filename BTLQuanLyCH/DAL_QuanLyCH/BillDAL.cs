@@ -30,10 +30,21 @@ namespace DAL_QuanLyCH
 
             return -1;
         }
-        public void IncertBill()
+        public void InsertBill(int id)
         {
-
+            DataProvider.Instance.ExecuteNonQuery("exec USP_InsertBill @idTable", new object[] {id});
         }
 
+        public int GetMaxIDBill()
+        {
+            try
+            {
+                return (int)DataProvider.Instance.ExecuteScalar("select Max(id) from dbo.Bill");
+            }
+            catch
+            {
+                return 1;
+            }
+        }
     }
 }
