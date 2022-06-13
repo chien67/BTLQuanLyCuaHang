@@ -149,42 +149,45 @@ insert dbo.FoodCategory(name)
 values(N'Lâm Sản')
 insert dbo.FoodCategory(name)
 values(N'Nước')
-
+select *from dbo.FoodCategory
+delete from dbo.FoodCategory where id>4
 -- thêm thức ăn
 insert dbo.Food
 --name nvarchar(100), idCategory- int, price-int
-values(N'Vịt quay',1,100000)
+values(N'Vịt quay',2,100000)
 insert dbo.Food
 values(N'Ức gà',2,50000)
 insert dbo.Food
-values(N'Dê núi',3,120000)
+values(N'Dê núi',1086,120000)
 insert dbo.Food
-values(N'Cá rán',4,100000)
+values(N'Cá rán',1,100000)
 insert dbo.Food
-values(N'sushi',5,50000)
+values(N'sushi',1,50000)
 insert dbo.Food
-values(N'Canh ngao',9,50000)
+values(N'Canh ngao',1,50000)
 insert dbo.Food
-values(N'Đậu lướt ván',8,30000)
+values(N'Đậu lướt ván',2,30000)
 insert dbo.Food
-values(N'7Up',6,10000)
+values(N'7Up',3,10000)
 insert dbo.Food
-values(N'pepsi',7,10000)
+values(N'pepsi',3,10000)
 insert dbo.Food
-values(N'Volka',12,120000)
+values(N'Volka',3,120000)
 insert dbo.Food
-values(N'Lợn quay',10,200000)
+values(N'Lợn quay',2,200000)
 insert dbo.Food
-values(N'Tôm',11,60000)
+values(N'Tôm',1,60000)
+
+go
 
 -- thêm bill
 insert dbo.Bill
 --checkin, checkout- date, idTable-int, status-int
-values(GETDATE(),GETDATE(),2,1)
+values(GETDATE(),null,2,1)
 insert dbo.Bill
-values(GETDATE(),GETDATE(),1,0)
+values(GETDATE(),null,1,0)
 insert dbo.Bill
-values(GETDATE(),GETDATE(),1,1)
+values(GETDATE(),null,1,1)
 
 -- thêm billinfo
 insert dbo.BillInfo
@@ -198,6 +201,7 @@ insert dbo.BillInfo
 values(2,1,3)
 insert dbo.BillInfo
 values(2,1,3) 
+
 go
 create proc USP_InsertBill
 @idTable int
@@ -214,7 +218,9 @@ begin
 	declare @isExitBillInfo int
 	declare @foodCount int = 1
 
-	select @isExitBillInfo = id, @foodCount = b.count from dbo.BillInfo AS b where idBill = @idBill and idFood = @idFood
+	select @isExitBillInfo = id, @foodCount = b.count 
+	from dbo.BillInfo AS b 
+	where idBill = @idBill and idFood = @idFood
 
 	if (@isExitBillInfo > 0)
 	begin
@@ -234,5 +240,6 @@ begin
 end
 go
 
+delete from dbo.TableFood where id>10
 
 
