@@ -158,7 +158,7 @@ values(N'Vịt quay',2,100000)
 insert dbo.Food
 values(N'Ức gà',2,50000)
 insert dbo.Food
-values(N'Dê núi',1086,120000)
+values(N'Dê núi',3,120000)
 insert dbo.Food
 values(N'Cá rán',1,100000)
 insert dbo.Food
@@ -168,11 +168,11 @@ values(N'Canh ngao',1,50000)
 insert dbo.Food
 values(N'Đậu lướt ván',2,30000)
 insert dbo.Food
-values(N'7Up',3,10000)
+values(N'7Up',4,10000)
 insert dbo.Food
-values(N'pepsi',3,10000)
+values(N'pepsi',4,10000)
 insert dbo.Food
-values(N'Volka',3,120000)
+values(N'Volka',4,120000)
 insert dbo.Food
 values(N'Lợn quay',2,200000)
 insert dbo.Food
@@ -183,7 +183,7 @@ go
 -- thêm bill
 insert dbo.Bill
 --checkin, checkout- date, idTable-int, status-int
-values(GETDATE(),null,2,1)
+values(GETDATE(),GETDATE(),2,0)
 insert dbo.Bill
 values(GETDATE(),null,1,0)
 insert dbo.Bill
@@ -227,7 +227,7 @@ begin
 		declare @newCount int = @foodCount + @count
 		if (@newCount > 0)
 			
-			update dbo.BillInfo set count = @foodCount + @count where idFood = @idFood
+			UPDATE dbo.BillInfo SET count = @foodCount + @count WHERE idBill = @idBill AND idFood = @idFood﻿
 		else
 			delete dbo.BillInfo where idBill = @idBill and idFood= @idFood
 	end
@@ -239,7 +239,10 @@ begin
 	end
 end
 go
-
+select * from dbo.BillInfo
+select * from dbo.TableFood
+select * from dbo.Food
+select * from dbo.FoodCategory
 delete from dbo.TableFood where id>10
 
 
