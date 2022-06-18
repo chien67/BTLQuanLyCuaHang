@@ -20,7 +20,7 @@ namespace DAL_QuanLyCH
         //
         public int GetUncheckBillIDByTableID(int id)
         {
-            DataTable data = DataProvider.Instance.ExecuteQuery("select * from dbo.Bill where idTable =" + id + " And status = 1");
+            DataTable data = DataProvider.Instance.ExecuteQuery("select * from dbo.Bill where idTable =" + id + " And status = 0 ");
 
             if (data.Rows.Count > 0)
             {
@@ -29,6 +29,11 @@ namespace DAL_QuanLyCH
             }
 
             return -1;
+        }
+        public void CheckOut (int id)
+        {
+            string query = "update dbo.Bill SET status = 1 where id = " + id;
+            DataProvider.Instance.ExecuteNonQuery(query);
         }
         public void InsertBill(int id)
         {

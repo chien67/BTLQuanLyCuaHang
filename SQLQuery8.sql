@@ -239,10 +239,45 @@ begin
 	end
 end
 go
-select * from dbo.BillInfo
-select * from dbo.TableFood
-select * from dbo.Food
-select * from dbo.FoodCategory
-delete from dbo.TableFood where id>10
 
 
+DELETE dbo.BillInfo
+
+DELETE dbo.Bill
+
+CREATE TRIGGER UTG_UpdateBillInfo
+ON dbo.BillInfo FOR INSERT, UPDATE
+AS
+BEGIN
+	DECLARE @idBill INT
+	
+	SELECT @idBill = idBill FROM Inserted
+	
+	DECLARE @idTable INT
+	
+	SELECT @idTable = idTable FROM dbo.Bill WHERE id = @idBill AND status = 0
+	
+	UPDATE dbo.TableFood SET status = N'Có người' WHERE id = @idTable
+END
+GO
+
+CREATE TRIGGER UTG_UpdateBill
+ON dbo.Bill FOR UPDATE
+AS
+BEGIN
+	DECLARE @idBill INT
+	
+	SELECT @idBill = id FROM Inserted	
+	
+	DECLARE @idTable INT
+	
+	SELECT @idTable = idTable FROM dbo.Bill WHERE id = @idBill
+	
+	DECLARE @count int = 0
+	
+	SELECT @count = COUNT(*) FROM dbo.Bill WHERE idTable = @idTable AND status = 0
+	
+	IF (@count = 0)
+		UPDATE dbo.TableFood SET status = N'Trống' WHERE id = @idTable
+END
+GO

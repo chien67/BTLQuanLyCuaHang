@@ -36,6 +36,7 @@ namespace GUI_QuanLyCH
         }
         void LoadTable()
         {
+            flpTable.Controls.Clear();
             List<Table> tableList = DAL_Table.Instance.LoadTableList();
             foreach (Table item in tableList)
             {
@@ -129,9 +130,25 @@ namespace GUI_QuanLyCH
             {
                 BillInfoDAL.Instance.InsertBillInfo(idBill, foodID, count);
             }
+            ShowBill(table.ID);
+            LoadTable();
+        }
+        private void btnCheckOut_Click(object sender, EventArgs e)
+        {
+            Table table = lsvBill.Tag as Table ;
+
+            int idBill = BillDAL.Instance.GetUncheckBillIDByTableID (table.ID);
+
+            if (idBill != -1)
+            {
+                if (MessageBox.Show("Bạn có chắc muốn thanh toán bàn " + table.Name,"Thông báo",MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
+                {
+                    BillDAL.Instance.CheckOut(idBill);
+                    ShowBill(table.ID);
+                    LoadTable();
+                }
+            }
         }
         #endregion
-
-
     }
 }
