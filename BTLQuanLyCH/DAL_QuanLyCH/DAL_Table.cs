@@ -21,6 +21,10 @@ namespace DAL_QuanLyCH
         public static int TableWidth = 120;
         public static int TableHeight = 120;
         private DAL_Table() { }
+        public void SwitchTable(int id1, int id2)
+        {
+            DataProvider.Instance.ExecuteQuery("USP_SwitchTable @idTable1 , @idTable2", new object[] { id1, id2 });
+        }
 
         public List<Table> LoadTableList()
         {

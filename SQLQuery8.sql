@@ -207,8 +207,8 @@ create proc USP_InsertBill
 @idTable int
 as
 begin
-	insert dbo.Bill(DateCheckIn, DateCheckOut, idTable, status)
-	values (GETDATE(),GETDATE(), @idTable, 0)
+	insert dbo.Bill(DateCheckIn, DateCheckOut, idTable, status,discount)
+	values (GETDATE(),GETDATE(), @idTable, 0,0)
 end
 go
 alter proc USP_InsertBillInfo
@@ -245,7 +245,7 @@ DELETE dbo.BillInfo
 
 DELETE dbo.Bill
 
-CREATE TRIGGER UTG_UpdateBillInfo
+alter TRIGGER UTG_UpdateBillInfo
 ON dbo.BillInfo FOR INSERT, UPDATE
 AS
 BEGIN
@@ -256,10 +256,28 @@ BEGIN
 	DECLARE @idTable INT
 	
 	SELECT @idTable = idTable FROM dbo.Bill WHERE id = @idBill AND status = 0
+
+	declare @count int
+	select @count = count(*) from dbo.BillInfo where idBill = @idBill
 	
-	UPDATE dbo.TableFood SET status = N'Có người' WHERE id = @idTable
+	if(@count > 0)
+	begin
+		UPDATE dbo.TableFood SET status = N'Có người' WHERE id = @idTable
+		print @idTable
+		print @idBill
+		print @count
+	end
+	else
+	begin
+		UPDATE dbo.TableFood SET status = N'Trống' WHERE id = @idTable
+		print @idTable
+		print @idBill
+		print @count
+	end
 END
 GO
+
+
 
 CREATE TRIGGER UTG_UpdateBill
 ON dbo.Bill FOR UPDATE
@@ -281,3 +299,74 @@ BEGIN
 		UPDATE dbo.TableFood SET status = N'Trống' WHERE id = @idTable
 END
 GO
+
+alter table dbo.Bill
+add discount int
+
+update dbo.Bill set discount = 0
+
+alter proc USP_SwitchTable
+@idTable1 int , @idTable2 int
+as begin
+
+	declare @idFirstBill int
+	declare @idSeconrdBill int
+
+	declare @isFirstTableEmty int = 1
+	declare @isSeconrdTableEmty int = 1
+
+	select @idFirstBill = id From dbo.Bill where idTable = @idTable1 and status = 0
+	select @idSeconrdBill = id From dbo.Bill where idTable = @idTable2 and status = 0
+
+	print @idFirstBill
+	print @idSeconrdBill
+
+	if (@idFirstBill is null)
+	begin
+		print '000001'
+		insert dbo.Bill(DateCheckIn, DateCheckOut, idTable, status)
+		--checkin, checkout- date, idTable-int, status-int
+		values(GETDATE(),GETDATE(),@idTable1,0)
+
+		select @idFirstBill = MAX(id) from dbo.Bill where idTable = @idTable1 and status = 0
+
+	end
+
+	select @isSeconrdTableEmty = count(*) from dbo.BillInfo where idBill = @idFirstBill
+
+	print @idFirstBill
+	print @idSeconrdBill
+
+	if (@idSeconrdBill is null)
+	begin
+		print '000002'
+		insert dbo.Bill(DateCheckIn, DateCheckOut, idTable, status)
+		--checkin, checkout- date, idTable-int, status-int
+		values(GETDATE(),GETDATE(),@idTable2,0)
+
+		select @idSeconrdBill = MAX(id) from dbo.Bill where idTable = @idTable2 and status = 0
+
+	end
+	
+	select @isSeconrdTableEmty = count(*) from dbo.BillInfo where idBill = @idSeconrdBill
+
+	print @idFirstBill
+	print @idSeconrdBill
+
+	select id into IDBillInfoTable from dbo.BillInfo where idBill = @idSeconrdBill
+
+	update dbo.Billinfo set idBill = @idSeconrdBill where idBill = @idFirstBill
+
+	update dbo.BillInfo set idBill = @idFirstBill where id in (select * from IDBillInfoTable)
+	drop Table IDBillInfoTable
+
+	if (@isFirstTableEmty = 0)
+		update dbo.TableFood set status = N'Trống' where id = @idTable2
+	if (@isSeconrdTableEmty = 0)
+		update dbo.TableFood set status = N'Trống' where id = @idTable2
+end
+go
+
+exec dbo.USP_SwitchTable @idTable1 = 2,
+	@idTable2 = 7
+update dbo.TableFood set status = N'Trống'

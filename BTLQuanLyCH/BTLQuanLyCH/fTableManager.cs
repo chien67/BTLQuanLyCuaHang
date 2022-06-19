@@ -19,6 +19,7 @@ namespace GUI_QuanLyCH
             InitializeComponent();
             LoadTable();
             LoadCategory();
+            LoadComboBoxTable(cbSwitchTable);
         }
         #region Method
 
@@ -74,7 +75,11 @@ namespace GUI_QuanLyCH
             CultureInfo culture = new CultureInfo("vi-VN");
             txbTotalPrice.Text = totalPrice.ToString("c",culture);
         }
-
+        void LoadComboBoxTable(ComboBox cb)
+        {
+            cb.DataSource = DAL_Table.Instance.LoadTableList();
+            cb.DisplayMember = "Name";
+        }
         #endregion
 
         #region Event
@@ -138,17 +143,33 @@ namespace GUI_QuanLyCH
             Table table = lsvBill.Tag as Table ;
 
             int idBill = BillDAL.Instance.GetUncheckBillIDByTableID (table.ID);
+            int discount = (int)nmDiscount.Value;
+
+            double totalPrice = Convert.ToDouble(txbTotalPrice.Text.Split(',')[0]);
+            double finalTotalPrice = totalPrice - (totalPrice / 100) * discount;
 
             if (idBill != -1)
             {
-                if (MessageBox.Show("Bạn có chắc muốn thanh toán bàn " + table.Name,"Thông báo",MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
+                if (MessageBox.Show(string.Format("Bạn có chắc muốn thanh toán bàn {0}\n Tổng tiền - (Tổng tiền / 100) x Giảm giá\n => {1} - ({1} / 100) x {2} = {3}", table.Name, totalPrice, discount, finalTotalPrice), "Thông báo", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
                 {
-                    BillDAL.Instance.CheckOut(idBill);
+                    BillDAL.Instance.CheckOut(idBill, discount);
                     ShowBill(table.ID);
                     LoadTable();
                 }
             }
         }
+        private void btnSwitchTable_Click(object sender, EventArgs e)
+        {
+
+            int id1 = (lsvBill.Tag as Table).ID;
+            int id2 = (cbSwitchTable.SelectedItem as Table).ID;
+            if (MessageBox.Show(string.Format("Bạn có thật sự muốn chuyển bàn {0} qua bàn {1}", (lsvBill.Tag as Table).Name, (cbSwitchTable.SelectedItem as Table).Name), "Thông báo", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
+            {
+                DAL_Table.Instance.SwitchTable(id1, id2);
+                LoadTable();
+            }
+        }
         #endregion
+
     }
 }
