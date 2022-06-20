@@ -18,8 +18,8 @@ namespace DAL_QuanLyCH
             private set { DAL_Table.instance = value; }
         }
 
-        public static int TableWidth = 120;
-        public static int TableHeight = 120;
+        public static int TableWidth = 100;
+        public static int TableHeight = 100;
         private DAL_Table() { }
         public void SwitchTable(int id1, int id2)
         {

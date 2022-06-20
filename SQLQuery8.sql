@@ -374,3 +374,21 @@ go
 exec dbo.USP_SwitchTable @idTable1 = 2,
 	@idTable2 = 7
 update dbo.TableFood set status = N'Trống'
+go
+
+alter table dbo.Bill add totalPrice float
+
+delete  dbo.Bill
+go
+
+alter proc USP_GetListBillByDate
+@checkIn date, @checkOut date
+as
+begin
+
+select t.name as [Tên bàn], b.totalPrice as [Tổng tiền],DateCheckIn as [Ngày vào], DateCheckOut as [Ngày ra], discount as [Giảm giá]
+from dbo.Bill as b,dbo.TableFood as t
+where DateCheckIn >= @checkIn and DateCheckOut <= @checkOut and b.status = 1
+and t.id = b.idTable
+end
+go
