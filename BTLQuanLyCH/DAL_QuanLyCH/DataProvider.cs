@@ -18,7 +18,7 @@ namespace DAL_QuanLyCH
         }
         private DataProvider() { }
 
-        private string connectionString = @"Data Source = DESKTOP-HIB2CEE\QUYNH ; Initial Catalog=BTLT3;User ID = sa; Password = 123456";
+        private string connectionString = @"Data Source = DESKTOP-E3B836B\SQLEXPRESS ; Initial Catalog=BTLT3;User ID = sa; Password = 123456";
 
         public DataTable ExecuteQuery(string query, object[] parameter = null)
         {

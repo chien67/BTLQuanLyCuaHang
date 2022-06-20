@@ -262,17 +262,20 @@ BEGIN
 	
 	if(@count > 0)
 	begin
-		UPDATE dbo.TableFood SET status = N'Có người' WHERE id = @idTable
+
 		print @idTable
 		print @idBill
 		print @count
+		UPDATE dbo.TableFood SET status = N'Có người' WHERE id = @idTable
+
 	end
 	else
 	begin
-		UPDATE dbo.TableFood SET status = N'Trống' WHERE id = @idTable
+
 		print @idTable
 		print @idBill
 		print @count
+		UPDATE dbo.TableFood SET status = N'Trống' WHERE id = @idTable
 	end
 END
 GO
@@ -304,6 +307,7 @@ alter table dbo.Bill
 add discount int
 
 update dbo.Bill set discount = 0
+go
 
 alter proc USP_SwitchTable
 @idTable1 int , @idTable2 int
@@ -332,7 +336,7 @@ as begin
 
 	end
 
-	select @isSeconrdTableEmty = count(*) from dbo.BillInfo where idBill = @idFirstBill
+	select @isFirstTableEmty = count(*) from dbo.BillInfo where idBill = @idFirstBill
 
 	print @idFirstBill
 	print @idSeconrdBill
@@ -363,7 +367,7 @@ as begin
 	if (@isFirstTableEmty = 0)
 		update dbo.TableFood set status = N'Trống' where id = @idTable2
 	if (@isSeconrdTableEmty = 0)
-		update dbo.TableFood set status = N'Trống' where id = @idTable2
+		update dbo.TableFood set status = N'Trống' where id = @idTable1
 end
 go
 
