@@ -1,4 +1,5 @@
 ﻿using DAL_QuanLyCH;
+using DTO_QuanLyCH;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,7 +25,8 @@ namespace GUI_QuanLyCH
             string passWord = txbPassWord.Text;
             if (Login(userName, passWord))
             {
-                fTableManager f = new fTableManager();
+                Account loginAccount = AccountDAL.Instance.GetAccountByUserName(userName);
+                fTableManager f = new fTableManager(loginAccount);
                 this.Hide();
                 f.ShowDialog();
                 this.Show();
@@ -36,7 +38,7 @@ namespace GUI_QuanLyCH
         }
         bool Login(string userName, string passWord)
         {
-            return Account.Instance.Login(userName, passWord);
+            return AccountDAL.Instance.Login(userName, passWord);
         }
 
         private void btnExit_Click(object sender, EventArgs e)

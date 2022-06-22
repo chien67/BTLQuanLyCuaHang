@@ -101,6 +101,21 @@ N'123',
 1
 )
 go
+    insert into dbo.Account
+(
+	UserName,
+	DisplayName,
+	Password,
+	Type
+)
+Values
+(
+N'staff',
+N'nhanvien1',
+N'123',
+0
+)
+go
 
 create proc getInfo
 @userName nvarchar(100)
@@ -282,7 +297,7 @@ GO
 
 
 
-CREATE TRIGGER UTG_UpdateBill
+alter TRIGGER UTG_UpdateBill
 ON dbo.Bill FOR UPDATE
 AS
 BEGIN

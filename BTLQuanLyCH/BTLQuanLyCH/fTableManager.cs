@@ -14,15 +14,27 @@ namespace GUI_QuanLyCH
 {
     public partial class fTableManager : Form
     {
-        public fTableManager()
+        private Account loginAccount;
+
+        public Account LoginAccount 
+        {
+            get { return loginAccount; }
+            set { loginAccount = value; ChangeAccount(loginAccount.Type); }
+        }
+
+        public fTableManager(Account acc)
         {
             InitializeComponent();
+            this.loginAccount = acc;
             LoadTable();
             LoadCategory();
             LoadComboBoxTable(cbSwitchTable);
         }
         #region Method
-
+        void ChangeAccount(int type)
+        {
+            adminToolStripMenuItem.Enabled = type == 1;
+        }
         void LoadCategory()
         {
             List<Category> listCategory = CategoryDAL.Instance.GetListCategory();
