@@ -25,7 +25,7 @@ namespace GUI_QuanLyCH
         public fTableManager(Account acc)
         {
             InitializeComponent();
-            this.loginAccount = acc;
+            this.LoginAccount = acc;
             LoadTable();
             LoadCategory();
             LoadComboBoxTable(cbSwitchTable);
@@ -34,6 +34,7 @@ namespace GUI_QuanLyCH
         void ChangeAccount(int type)
         {
             adminToolStripMenuItem.Enabled = type == 1;
+            thôngTinTàiKhoảnToolStripMenuItem.Text += "(" +LoginAccount.DisplayName + ")";
         }
         void LoadCategory()
         {
@@ -108,7 +109,7 @@ namespace GUI_QuanLyCH
 
         private void thôngTinCáNhânToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            fAccountProfile f = new fAccountProfile();
+            fAccountProfile f = new fAccountProfile(LoginAccount);
             f.ShowDialog();
         }
 
