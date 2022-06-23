@@ -34,9 +34,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txbPassWord = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.txbNewPsss = new System.Windows.Forms.TextBox();
+            this.txbNewPass = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txbReEnterPass = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.btnExit = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
@@ -94,12 +94,12 @@
             this.label3.TabIndex = 8;
             this.label3.Text = "Mật khẩu:";
             // 
-            // txbNewPsss
+            // txbNewPass
             // 
-            this.txbNewPsss.Location = new System.Drawing.Point(129, 148);
-            this.txbNewPsss.Name = "txbNewPsss";
-            this.txbNewPsss.Size = new System.Drawing.Size(190, 20);
-            this.txbNewPsss.TabIndex = 11;
+            this.txbNewPass.Location = new System.Drawing.Point(129, 148);
+            this.txbNewPass.Name = "txbNewPass";
+            this.txbNewPass.Size = new System.Drawing.Size(190, 20);
+            this.txbNewPass.TabIndex = 11;
             // 
             // label4
             // 
@@ -111,12 +111,12 @@
             this.label4.TabIndex = 10;
             this.label4.Text = "Mật khẩu mới:";
             // 
-            // textBox1
+            // txbReEnterPass
             // 
-            this.textBox1.Location = new System.Drawing.Point(129, 185);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(190, 20);
-            this.textBox1.TabIndex = 13;
+            this.txbReEnterPass.Location = new System.Drawing.Point(129, 185);
+            this.txbReEnterPass.Name = "txbReEnterPass";
+            this.txbReEnterPass.Size = new System.Drawing.Size(190, 20);
+            this.txbReEnterPass.TabIndex = 13;
             // 
             // label5
             // 
@@ -160,9 +160,9 @@
             this.ClientSize = new System.Drawing.Size(347, 314);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnUpdate);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txbReEnterPass);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.txbNewPsss);
+            this.Controls.Add(this.txbNewPass);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txbPassWord);
             this.Controls.Add(this.label3);
@@ -186,9 +186,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txbPassWord;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txbNewPsss;
+        private System.Windows.Forms.TextBox txbNewPass;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txbReEnterPass;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Button btnUpdate;

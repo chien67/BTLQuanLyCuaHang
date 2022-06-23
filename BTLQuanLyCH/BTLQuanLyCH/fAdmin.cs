@@ -31,6 +31,10 @@ namespace GUI_QuanLyCH
         {
             dtgvBill.DataSource = BillDAL.Instance.GetBillListByDate(checkIn, checkOut);
         }
+        void LoadListFood()
+        {
+            dtgvFood.DataSource = FoodDAL.Instance.GetListFood();
+        }
         #endregion
 
         #region evenets
@@ -39,5 +43,10 @@ namespace GUI_QuanLyCH
             LoadListBillByDate(dtpkFromDate.Value, dtpkToDate.Value);
         }
         #endregion
+
+        private void btnShowFood_Click(object sender, EventArgs e)
+        {
+            LoadListFood();
+        }
     }
 }

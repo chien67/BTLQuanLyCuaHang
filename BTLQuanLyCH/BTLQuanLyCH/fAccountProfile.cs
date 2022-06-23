@@ -24,7 +24,7 @@ namespace GUI_QuanLyCH
         public fAccountProfile(Account acc)
         {
             InitializeComponent();
-            loginAccount = acc;
+            LoginAccount = acc;
         }
         void ChangeAccount (Account acc)
         {
@@ -32,7 +32,7 @@ namespace GUI_QuanLyCH
             txbDisplayName.Text = LoginAccount.DisplayName;
         }
         
-        void UpdateAccount()
+        void UpdateAccountInfo()
         {
             string displayName = txbDisplayName.Text;
             string password= txbPassWord.Text;
@@ -42,19 +42,27 @@ namespace GUI_QuanLyCH
 
             if (!newpass.Equals(reenterPass))
             {
-                MessageBox.Show("Vui lòng nhập lại mật khẩu đúng!");
+                MessageBox.Show("Vui lòng nhập lại mật khẩu đúng với mật khẩu mới!");
             }
             else
             {
                 if (AccountDAL.Instance.UpdateAccount(userName, displayName, password, newpass))
                 {
                     MessageBox.Show("Cập nhật thành công");
+                    if (updateAccount != null)
+                    updateAccount(this,new AccountEvent (AccountDAL.Instance.GetAccountByUserName(userName)));
                 }
                 else 
-                { 
-                    MessageBox.Show("vui lòng điền đúng mật khẩu")
+                {
+                    MessageBox.Show("Vui lòng điền đúng mật khẩu");
                 }
             }
+        }
+        private event EventHandler<AccountEvent> updateAccount;
+        public event EventHandler<AccountEvent> UpdateAccount
+        {
+            add { updateAccount += value; }
+            remove { updateAccount -= value; }
         }
         private void btnExit_Click(object sender, EventArgs e)
         {
@@ -63,7 +71,18 @@ namespace GUI_QuanLyCH
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            UpdateAccount();
+            UpdateAccountInfo();
+        }
+    }
+    public class AccountEvent:EventArgs
+    {
+        private Account acc;
+
+        public Account Acc { get => acc; set => acc = value; }
+
+        public AccountEvent(Account acc)
+        {
+            this.Acc = acc;
         }
     }
 }
