@@ -1,4 +1,5 @@
 ﻿using DAL_QuanLyCH;
+using DTO_QuanLyCH;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,13 +15,24 @@ namespace GUI_QuanLyCH
 {
     public partial class fAdmin : Form
     {
+        BindingSource foodList = new BindingSource();
         public fAdmin()
         {
             InitializeComponent();
-            LoadDateTimePickerBill();
-            LoadListBillByDate(dtpkFromDate.Value, dtpkToDate.Value);
+            Load();
+ 
         }
         #region methods
+        void Load()
+        {
+            dtgvFood.DataSource = foodList;
+
+            LoadDateTimePickerBill();
+            LoadListBillByDate(dtpkFromDate.Value, dtpkToDate.Value);
+            LoadListFood();
+            LoadCategoryIntoCombobox(cbfFoodCategory);
+            AddFoodBinding();
+        }
         void LoadDateTimePickerBill()
         {
             DateTime today = DateTime.Now;
@@ -31,22 +43,59 @@ namespace GUI_QuanLyCH
         {
             dtgvBill.DataSource = BillDAL.Instance.GetBillListByDate(checkIn, checkOut);
         }
+        void AddFoodBinding()
+        {
+            txbFoodName.DataBindings.Add(new Binding("Text", dtgvFood.DataSource, "Name"));
+            txbFoodID.DataBindings.Add(new Binding("Text", dtgvFood.DataSource, "ID"));
+            nmFoodPrice.DataBindings.Add(new Binding("Value", dtgvFood.DataSource, "Price"));
+        }
+        void LoadCategoryIntoCombobox(ComboBox cb)
+        {
+            cbfFoodCategory.DataSource = CategoryDAL.Instance.GetListCategory();
+            cb.DisplayMember = "Name";
+        }
         void LoadListFood()
         {
-            dtgvFood.DataSource = FoodDAL.Instance.GetListFood();
+            foodList.DataSource = FoodDAL.Instance.GetListFood();
         }
         #endregion
 
         #region evenets
+        private void btnShowFood_Click(object sender, EventArgs e)
+        {
+            LoadListFood();
+        }
         private void btnViewBill_Click(object sender, EventArgs e)
         {
             LoadListBillByDate(dtpkFromDate.Value, dtpkToDate.Value);
         }
+
         #endregion
 
-        private void btnShowFood_Click(object sender, EventArgs e)
+        private void txbFoodID_TextChage(object sender, EventArgs e)
         {
-            LoadListFood();
+            if (dtgvFood.SelectedCells.Count > 0)
+            {
+                int id = (int)dtgvFood.SelectedCells[0].OwningRow.Cells["CategoryID"].Value;
+                
+                    Category category = CategoryDAL.Instance.GetCategoryByID(id);
+                    cbfFoodCategory.SelectedItem = category;
+
+                int index = -1;
+                int i = 0;
+                foreach (Category item in cbfFoodCategory.Items)
+                {
+                    if(item.ID == category.ID)
+                    {
+                        index = i;
+                        break;
+                    }
+                    i++;
+                }
+                cbfFoodCategory.SelectedIndex = index;
+                
+            }
+
         }
     }
 }
