@@ -426,3 +426,22 @@ BEGIN
 	end
 END
 GO
+
+create trigger UTG_DeleteBillInfo
+on dbo.BillInfo for Delete
+as
+begin
+	declare @idBillInfo int
+	declare @idBill int
+	select @idBillInfo = id, @idBill = Deleted.idBill from Deleted
+
+	declare @idTable int
+	select @idTable = idTable from dbo.Bill where id = @idBill
+
+	declare @count int = 0 
+	select @count = count(*) from dbo.BillInfo as bi, dbo.Bill as b where b.id = bi.idBill and b.id = @idBill and b.status = 0
+
+	if (@count = 0)
+		update dbo.TableFood set status = N'Trống' where id = @idTable
+end
+go
