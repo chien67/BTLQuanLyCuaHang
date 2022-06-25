@@ -15,8 +15,12 @@ namespace GUI_QuanLyCH
 {
     public partial class fAdmin : Form
     {
+
         BindingSource foodList = new BindingSource();
+
         BindingSource accountList = new BindingSource();
+
+        public Account loginAccount;
         public fAdmin()
         {
             InitializeComponent();
@@ -105,6 +109,10 @@ namespace GUI_QuanLyCH
         }
         void DeleteAccount(string userName)
         {
+            if (loginAccount.UserName.Equals(userName))
+            {
+                MessageBox.Show("Không thể tự xoá chính tài khoản");
+            }    
             if (AccountDAL.Instance.DeleteAccount(userName))
             {
                 MessageBox.Show("Cập nhật tài khoản thành công");
