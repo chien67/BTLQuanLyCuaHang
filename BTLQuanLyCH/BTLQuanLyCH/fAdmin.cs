@@ -16,6 +16,7 @@ namespace GUI_QuanLyCH
     public partial class fAdmin : Form
     {
         BindingSource foodList = new BindingSource();
+        BindingSource accountList = new BindingSource();
         public fAdmin()
         {
             InitializeComponent();
@@ -33,12 +34,25 @@ namespace GUI_QuanLyCH
         void Load()
         {
             dtgvFood.DataSource = foodList;
-
+            dtgvAccount.DataSource = accountList;
             LoadDateTimePickerBill();
             LoadListBillByDate(dtpkFromDate.Value, dtpkToDate.Value);
             LoadListFood();
+            LoadAccount();
             LoadCategoryIntoCombobox(cbfFoodCategory);
             AddFoodBinding();
+            AddAccountBinding();
+        }
+        void AddAccountBinding()
+        {
+            txbUserName.DataBindings.Add(new Binding("Text", dtgvAccount.DataSource, "Username",true,DataSourceUpdateMode.Never));//txbox ko chuyen du lieu nguoc ve
+            txbDisplayName.DataBindings.Add(new Binding("Text", dtgvAccount.DataSource, "DisplayName", true, DataSourceUpdateMode.Never));
+            numericUpDown1.DataBindings.Add(new Binding("Value", dtgvAccount.DataSource, "Type", true, DataSourceUpdateMode.Never));
+        }
+
+        void LoadAccount()
+        {
+            accountList.DataSource = AccountDAL.Instance.GetListAccount();
         }
         void LoadDateTimePickerBill()
         {
@@ -65,9 +79,90 @@ namespace GUI_QuanLyCH
         {
             foodList.DataSource = FoodDAL.Instance.GetListFood();
         }
+        void AddAccount(string userName,string displayName, int type)
+        {
+            if (AccountDAL.Instance.InsertAccount(userName, displayName, type))
+            {
+                MessageBox.Show("Thêm tài khoản thành công");
+            }
+            else
+            {
+                MessageBox.Show("Thêm tài khoản thất bại");
+            }
+                LoadAccount();
+        }
+        void EditAccount(string userName, string displayName, int type)
+        {
+            if (AccountDAL.Instance.UpdateAccount(userName, displayName, type))
+            {
+                MessageBox.Show("Cập nhật tài khoản thành công");
+            }
+            else
+            {
+                MessageBox.Show("Cập nhật tài khoản thất bại");
+            }
+            LoadAccount();
+        }
+        void DeleteAccount(string userName)
+        {
+            if (AccountDAL.Instance.DeleteAccount(userName))
+            {
+                MessageBox.Show("Cập nhật tài khoản thành công");
+            }
+            else
+            {
+                MessageBox.Show("Cập nhật tài khoản thất bại");
+            }
+            LoadAccount();
+        }
+        void ResetPass(string userName)
+        {
+            if (AccountDAL.Instance.ResetPassword(userName))
+            {
+                MessageBox.Show("Đặt lại tài khoản thành công");
+            }
+            else
+            {
+                MessageBox.Show("Đặt lại tài khoản thất bại");
+            }
+        }
         #endregion
 
-        #region evenets
+        #region events
+        private void btnAddAccount_Click(object sender, EventArgs e)
+        {
+            string userName = txbUserName.Text;
+            string displayName = txbDisplayName.Text;
+            int type = (int)numericUpDown1.Value;
+
+            AddAccount(userName,displayName,type);
+        }
+
+        private void btnDeleteccount_Click(object sender, EventArgs e)
+        {
+            string userName = txbUserName.Text;
+
+            DeleteAccount(userName);
+        }
+
+        private void btnEditAccount_Click(object sender, EventArgs e)
+        {
+            string userName = txbUserName.Text;
+            string displayName = txbDisplayName.Text;
+            int type = (int)numericUpDown1.Value;
+
+            EditAccount(userName, displayName, type);
+        }
+        private void btnResetPassword_Click(object sender, EventArgs e)
+        {
+            string userName = txbUserName.Text;
+
+            ResetPass(userName);
+        }
+        private void btnShowAccount_Click(object sender, EventArgs e)
+        {
+            LoadAccount();
+        }
         private void btnSearchFood_Click(object sender, EventArgs e)
         {
             foodList.DataSource = SearchFoodByName(txbSearchFoodName.Text);
@@ -191,6 +286,10 @@ namespace GUI_QuanLyCH
         }
 
 
+
+
         #endregion
+
+
     }
 }

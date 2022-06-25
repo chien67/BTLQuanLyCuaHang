@@ -95,9 +95,9 @@
             this.btnAddTable = new System.Windows.Forms.Button();
             this.tbAccount = new System.Windows.Forms.TabPage();
             this.panel22 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnResetPassword = new System.Windows.Forms.Button();
             this.panel23 = new System.Windows.Forms.Panel();
-            this.cbAccountType = new System.Windows.Forms.ComboBox();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.label10 = new System.Windows.Forms.Label();
             this.panel24 = new System.Windows.Forms.Panel();
             this.txbDisplayName = new System.Windows.Forms.TextBox();
@@ -146,6 +146,7 @@
             this.tbAccount.SuspendLayout();
             this.panel22.SuspendLayout();
             this.panel23.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.panel24.SuspendLayout();
             this.panel25.SuspendLayout();
             this.panel26.SuspendLayout();
@@ -172,7 +173,7 @@
             this.tbBill.Controls.Add(this.panel3);
             this.tbBill.Location = new System.Drawing.Point(4, 22);
             this.tbBill.Name = "tbBill";
-            this.tbBill.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tbBill.Padding = new System.Windows.Forms.Padding(3);
             this.tbBill.Size = new System.Drawing.Size(728, 420);
             this.tbBill.TabIndex = 0;
             this.tbBill.Text = "Doanh thu";
@@ -238,7 +239,7 @@
             this.tpFood.Controls.Add(this.panel1);
             this.tpFood.Location = new System.Drawing.Point(4, 22);
             this.tpFood.Name = "tpFood";
-            this.tpFood.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tpFood.Padding = new System.Windows.Forms.Padding(3);
             this.tpFood.Size = new System.Drawing.Size(728, 420);
             this.tpFood.TabIndex = 1;
             this.tpFood.Text = "Thức Ăn";
@@ -469,7 +470,7 @@
             this.TbFoodCategory.Controls.Add(this.panel18);
             this.TbFoodCategory.Location = new System.Drawing.Point(4, 22);
             this.TbFoodCategory.Name = "TbFoodCategory";
-            this.TbFoodCategory.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.TbFoodCategory.Padding = new System.Windows.Forms.Padding(3);
             this.TbFoodCategory.Size = new System.Drawing.Size(728, 420);
             this.TbFoodCategory.TabIndex = 2;
             this.TbFoodCategory.Text = "Danh Mục";
@@ -609,7 +610,7 @@
             this.tbTable.Controls.Add(this.panel20);
             this.tbTable.Location = new System.Drawing.Point(4, 22);
             this.tbTable.Name = "tbTable";
-            this.tbTable.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tbTable.Padding = new System.Windows.Forms.Padding(3);
             this.tbTable.Size = new System.Drawing.Size(728, 420);
             this.tbTable.TabIndex = 3;
             this.tbTable.Text = "Bàn Ăn";
@@ -648,7 +649,7 @@
             this.label9.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.Location = new System.Drawing.Point(3, 10);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(121, 24);
+            this.label9.Size = new System.Drawing.Size(119, 24);
             this.label9.TabIndex = 0;
             this.label9.Text = "Trạng Thái :";
             // 
@@ -777,7 +778,7 @@
             this.tbAccount.Controls.Add(this.panel27);
             this.tbAccount.Location = new System.Drawing.Point(4, 22);
             this.tbAccount.Name = "tbAccount";
-            this.tbAccount.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tbAccount.Padding = new System.Windows.Forms.Padding(3);
             this.tbAccount.Size = new System.Drawing.Size(728, 420);
             this.tbAccount.TabIndex = 4;
             this.tbAccount.Text = "Tài Khoản";
@@ -785,7 +786,7 @@
             // 
             // panel22
             // 
-            this.panel22.Controls.Add(this.button1);
+            this.panel22.Controls.Add(this.btnResetPassword);
             this.panel22.Controls.Add(this.panel23);
             this.panel22.Controls.Add(this.panel24);
             this.panel22.Controls.Add(this.panel25);
@@ -794,32 +795,37 @@
             this.panel22.Size = new System.Drawing.Size(284, 318);
             this.panel22.TabIndex = 13;
             // 
-            // button1
+            // btnResetPassword
             // 
-            this.button1.Location = new System.Drawing.Point(198, 163);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(80, 59);
-            this.button1.TabIndex = 4;
-            this.button1.TabStop = false;
-            this.button1.Text = "Đặt lại mật khẩu";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnResetPassword.Location = new System.Drawing.Point(198, 163);
+            this.btnResetPassword.Name = "btnResetPassword";
+            this.btnResetPassword.Size = new System.Drawing.Size(80, 59);
+            this.btnResetPassword.TabIndex = 4;
+            this.btnResetPassword.TabStop = false;
+            this.btnResetPassword.Text = "Đặt lại mật khẩu";
+            this.btnResetPassword.UseVisualStyleBackColor = true;
+            this.btnResetPassword.Click += new System.EventHandler(this.btnResetPassword_Click);
             // 
             // panel23
             // 
-            this.panel23.Controls.Add(this.cbAccountType);
+            this.panel23.Controls.Add(this.numericUpDown1);
             this.panel23.Controls.Add(this.label10);
             this.panel23.Location = new System.Drawing.Point(3, 103);
             this.panel23.Name = "panel23";
             this.panel23.Size = new System.Drawing.Size(278, 44);
             this.panel23.TabIndex = 2;
             // 
-            // cbAccountType
+            // numericUpDown1
             // 
-            this.cbAccountType.FormattingEnabled = true;
-            this.cbAccountType.Location = new System.Drawing.Point(136, 13);
-            this.cbAccountType.Name = "cbAccountType";
-            this.cbAccountType.Size = new System.Drawing.Size(139, 21);
-            this.cbAccountType.TabIndex = 1;
+            this.numericUpDown1.Location = new System.Drawing.Point(136, 14);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(139, 20);
+            this.numericUpDown1.TabIndex = 5;
             // 
             // label10
             // 
@@ -870,7 +876,6 @@
             // 
             this.txbUserName.Location = new System.Drawing.Point(136, 15);
             this.txbUserName.Name = "txbUserName";
-            this.txbUserName.ReadOnly = true;
             this.txbUserName.Size = new System.Drawing.Size(139, 20);
             this.txbUserName.TabIndex = 6;
             // 
@@ -895,6 +900,7 @@
             // 
             // dtgvAccount
             // 
+            this.dtgvAccount.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dtgvAccount.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgvAccount.Location = new System.Drawing.Point(3, 3);
             this.dtgvAccount.Name = "dtgvAccount";
@@ -921,6 +927,7 @@
             this.btnShowAccount.TabIndex = 3;
             this.btnShowAccount.Text = "Xem";
             this.btnShowAccount.UseVisualStyleBackColor = true;
+            this.btnShowAccount.Click += new System.EventHandler(this.btnShowAccount_Click);
             // 
             // btnEditAccount
             // 
@@ -930,6 +937,7 @@
             this.btnEditAccount.TabIndex = 2;
             this.btnEditAccount.Text = "Sửa";
             this.btnEditAccount.UseVisualStyleBackColor = true;
+            this.btnEditAccount.Click += new System.EventHandler(this.btnEditAccount_Click);
             // 
             // btnDeleteccount
             // 
@@ -939,6 +947,7 @@
             this.btnDeleteccount.TabIndex = 1;
             this.btnDeleteccount.Text = "Xoá";
             this.btnDeleteccount.UseVisualStyleBackColor = true;
+            this.btnDeleteccount.Click += new System.EventHandler(this.btnDeleteccount_Click);
             // 
             // btnAddAccount
             // 
@@ -948,6 +957,7 @@
             this.btnAddAccount.TabIndex = 0;
             this.btnAddAccount.Text = "Thêm";
             this.btnAddAccount.UseVisualStyleBackColor = true;
+            this.btnAddAccount.Click += new System.EventHandler(this.btnAddAccount_Click);
             // 
             // fAdmin
             // 
@@ -1003,6 +1013,7 @@
             this.panel22.ResumeLayout(false);
             this.panel23.ResumeLayout(false);
             this.panel23.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.panel24.ResumeLayout(false);
             this.panel24.PerformLayout();
             this.panel25.ResumeLayout(false);
@@ -1083,9 +1094,8 @@
         private System.Windows.Forms.ComboBox cbTableStatus;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Panel panel22;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnResetPassword;
         private System.Windows.Forms.Panel panel23;
-        private System.Windows.Forms.ComboBox cbAccountType;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Panel panel24;
         private System.Windows.Forms.TextBox txbDisplayName;
@@ -1100,5 +1110,6 @@
         private System.Windows.Forms.Button btnEditAccount;
         private System.Windows.Forms.Button btnDeleteccount;
         private System.Windows.Forms.Button btnAddAccount;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
     }
 }

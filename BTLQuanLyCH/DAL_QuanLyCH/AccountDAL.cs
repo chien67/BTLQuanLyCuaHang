@@ -32,6 +32,11 @@ namespace DAL_QuanLyCH
             int result = DataProvider.Instance.ExecuteNonQuery("exec USP_UpdateAccount @userName , @displayName , @password , @newPassword", new object[] {userName, displayName, pass, newPass });
             return result >0;
         }
+        public DataTable GetListAccount()
+        {
+            return DataProvider.Instance.ExecuteQuery("select Username , DisplayName , Type from dbo.Account");
+        }
+
         public Account GetAccountByUserName (string userName)
         {
             DataTable data = DataProvider.Instance.ExecuteQuery("Select * from account where userName = '" + userName + "'");
@@ -42,6 +47,39 @@ namespace DAL_QuanLyCH
             }
 
             return null;
+        }
+        public bool InsertAccount(string name, string displayName, int type)
+        {
+            string query = string.Format("insert dbo.Account ( UserName, DisplayName, Type )Values ( N'{0}', N'{1}', {2})", name, displayName, type);
+
+            int result = DataProvider.Instance.ExecuteNonQuery(query);
+
+            return result > 0;
+        }
+        public bool UpdateAccount(string name, string displayName, int type)
+        {
+            string query = string.Format("update dbo.Account set DisplayName = N'{1}', Type = {2} where Username = N'{0}'", name, displayName, type);
+
+            int result = DataProvider.Instance.ExecuteNonQuery(query);
+
+            return result > 0;
+        }
+        public bool DeleteAccount(string name)
+        {
+ 
+            string query = string.Format("delete Account where UserName = N'{0}'", name);
+
+            int result = DataProvider.Instance.ExecuteNonQuery(query);
+
+            return result > 0;
+        }
+        public bool ResetPassword(string name)
+        {
+            string query = string.Format("update account set password = N'0' where UserName = N'{0}'", name);
+
+            int result = DataProvider.Instance.ExecuteNonQuery(query);
+
+            return result > 0;
         }
     }
 }
