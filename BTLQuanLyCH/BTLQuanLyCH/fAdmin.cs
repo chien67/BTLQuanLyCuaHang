@@ -23,6 +23,13 @@ namespace GUI_QuanLyCH
  
         }
         #region methods
+
+        List<Food> SearchFoodByName(string name)
+        {
+            List<Food> listFood = FoodDAL.Instance.SearchFoodByName(name);
+
+            return listFood;
+        }
         void Load()
         {
             dtgvFood.DataSource = foodList;
@@ -61,28 +68,38 @@ namespace GUI_QuanLyCH
         #endregion
 
         #region evenets
+        private void btnSearchFood_Click(object sender, EventArgs e)
+        {
+            foodList.DataSource = SearchFoodByName(txbSearchFoodName.Text);
+        }
         private void txbFoodID_TextChage(object sender, EventArgs e)
         {
             if (dtgvFood.SelectedCells.Count > 0)
             {
-                int id = (int)dtgvFood.SelectedCells[0].OwningRow.Cells["CategoryID"].Value;
-
-                Category category = CategoryDAL.Instance.GetCategoryByID(id);
-                cbfFoodCategory.SelectedItem = category;
-
-                int index = -1;
-                int i = 0;
-                foreach (Category item in cbfFoodCategory.Items)
+                try
                 {
-                    if (item.ID == category.ID)
-                    {
-                        index = i;
-                        break;
-                    }
-                    i++;
-                }
-                cbfFoodCategory.SelectedIndex = index;
+                    int id = (int)dtgvFood.SelectedCells[0].OwningRow.Cells["CategoryID"].Value;
 
+                    Category category = CategoryDAL.Instance.GetCategoryByID(id);
+                    cbfFoodCategory.SelectedItem = category;
+
+                    int index = -1;
+                    int i = 0;
+                    foreach (Category item in cbfFoodCategory.Items)
+                    {
+                        if (item.ID == category.ID)
+                        {
+                            index = i;
+                            break;
+                        }
+                        i++;
+                    }
+                    cbfFoodCategory.SelectedIndex = index;
+                }
+                catch
+                {
+
+                }
             }
 
         }
