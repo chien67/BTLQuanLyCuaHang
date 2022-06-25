@@ -168,7 +168,7 @@ namespace GUI_QuanLyCH
         {
             Table table = lsvBill.Tag as Table;
 
-            if(table != null)
+            if(table == null)
             {
                 MessageBox.Show("Hãy chọn bàn");
             }
