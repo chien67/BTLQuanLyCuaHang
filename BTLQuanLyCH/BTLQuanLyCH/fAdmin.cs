@@ -29,16 +29,9 @@ namespace GUI_QuanLyCH
         {
             InitializeComponent();
             Load();
- 
         }
         #region methods
 
-        List<Food> SearchFoodByName(string name)
-        {
-            List<Food> listFood = FoodDAL.Instance.SearchFoodByName(name);
-
-            return listFood;
-        }
         void Load()
         {
             dtgvFood.DataSource = foodList;
@@ -58,6 +51,12 @@ namespace GUI_QuanLyCH
             AddCategoryBinding();
             AddTableBinding();
 
+        }
+        List<Food> SearchFoodByName(string name)
+        {
+            List<Food> listFood = FoodDAL.Instance.SearchFoodByName(name);
+
+            return listFood;
         }
         void AddAccountBinding()
         {
@@ -99,7 +98,7 @@ namespace GUI_QuanLyCH
         {
             foodList.DataSource = FoodDAL.Instance.GetListFood();
         }
-        void AddAccount(string userName,string displayName, int type)
+        void AddAccount(string userName, string displayName, int type)
         {
             if (AccountDAL.Instance.InsertAccount(userName, displayName, type))
             {
@@ -153,6 +152,7 @@ namespace GUI_QuanLyCH
         void LoadListTable()
         {
             tableList.DataSource = DAL_Table.Instance.GetListTable();
+            this.dtgvTable.Columns["ID"].Visible = false;
         }
 
         void AddTableBinding()
@@ -196,12 +196,12 @@ namespace GUI_QuanLyCH
         private void btnResetPassword_Click(object sender, EventArgs e)
         {
             string userName = txbUserName.Text;
-
             ResetPass(userName);
+            LoadAccount();
         }
         private void btnShowAccount_Click(object sender, EventArgs e)
         {
-            LoadAccount();
+
         }
         private void btnShowCategory_Click(object sender, EventArgs e)
         {
@@ -216,7 +216,6 @@ namespace GUI_QuanLyCH
             string name = txbFoodName.Text;
             int categoryID = (cbfFoodCategory.SelectedItem as Category).ID;
             float price = (float)nmFoodPrice.Value;
-
             if (FoodDAL.Instance.InsertFood(name, categoryID, price))
             {
                 MessageBox.Show("Thêm món ăn thành công");
@@ -308,6 +307,7 @@ namespace GUI_QuanLyCH
             {
                 MessageBox.Show("Thêm danh mục thành công");
                 LoadListCategory();
+                LoadCategoryIntoCombobox(cbfFoodCategory);
             }
             else
             {
@@ -323,6 +323,7 @@ namespace GUI_QuanLyCH
             {
                 MessageBox.Show("Xoá danh mục thành công");
                 LoadListCategory();
+                LoadCategoryIntoCombobox(cbfFoodCategory);
             }
             else
             {
@@ -380,7 +381,5 @@ namespace GUI_QuanLyCH
             remove { updateFood -= value; }
         }
         #endregion
-
-
     }
 }

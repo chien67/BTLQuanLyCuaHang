@@ -128,6 +128,8 @@ namespace GUI_QuanLyCH
             f.DeleteFood += F_DeleteFood;
             f.UpdateFood += F_UpdateFood;
             f.ShowDialog();
+            LoadTable();
+            LoadCategory();
         }
 
         private void F_UpdateFood(object sender, EventArgs e)
