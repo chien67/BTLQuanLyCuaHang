@@ -19,8 +19,10 @@ namespace GUI_QuanLyCH
         BindingSource foodList = new BindingSource();
 
         BindingSource accountList = new BindingSource();
+
         BindingSource tableList = new BindingSource();
-        
+
+        BindingSource categoryList = new BindingSource();
 
         public Account loginAccount;
         public fAdmin()
@@ -42,15 +44,18 @@ namespace GUI_QuanLyCH
             dtgvFood.DataSource = foodList;
             dtgvAccount.DataSource = accountList;
             dtgvTable.DataSource = tableList;
+            dtgvCategory.DataSource = categoryList;
             LoadDateTimePickerBill();
             LoadListBillByDate(dtpkFromDate.Value, dtpkToDate.Value);
             LoadListFood();
-            LoadAccount();
+            LoadAccount(); 
+            LoadListCategory();
             LoadListTable();
             LoadCategoryIntoCombobox(cbfFoodCategory);
 
             AddFoodBinding();
             AddAccountBinding();
+            AddCategoryBinding();
             AddTableBinding();
 
         }
@@ -79,6 +84,11 @@ namespace GUI_QuanLyCH
             txbFoodName.DataBindings.Add(new Binding("Text", dtgvFood.DataSource, "Name", true, DataSourceUpdateMode.Never));
             txbFoodID.DataBindings.Add(new Binding("Text", dtgvFood.DataSource, "ID", true, DataSourceUpdateMode.Never));
             nmFoodPrice.DataBindings.Add(new Binding("Value", dtgvFood.DataSource, "Price", true, DataSourceUpdateMode.Never));
+        }
+        void AddCategoryBinding()
+        {
+            txbCategoryName.DataBindings.Add(new Binding("Text", dtgvCategory.DataSource, "Name", true, DataSourceUpdateMode.Never));
+            txbCategoryID.DataBindings.Add(new Binding("Text", dtgvCategory.DataSource, "ID", true, DataSourceUpdateMode.Never));
         }
         void LoadCategoryIntoCombobox(ComboBox cb)
         {
@@ -144,11 +154,16 @@ namespace GUI_QuanLyCH
         {
             tableList.DataSource = DAL_Table.Instance.GetListTable();
         }
+
         void AddTableBinding()
         {
             txbTableID.DataBindings.Add(new Binding("Text", dtgvTable.DataSource, "ID", true, DataSourceUpdateMode.Never));
             txbTableName.DataBindings.Add(new Binding("Text", dtgvTable.DataSource, "Name", true, DataSourceUpdateMode.Never));
             cbTableStatus.DataBindings.Add(new Binding("Text", dtgvTable.DataSource, "Status", true, DataSourceUpdateMode.Never));
+        }
+        void LoadListCategory()
+        {
+            categoryList.DataSource = CategoryDAL.Instance.GetListCategory();
         }
         #endregion
 
@@ -187,6 +202,10 @@ namespace GUI_QuanLyCH
         private void btnShowAccount_Click(object sender, EventArgs e)
         {
             LoadAccount();
+        }
+        private void btnShowCategory_Click(object sender, EventArgs e)
+        {
+            LoadListCategory();
         }
         private void btnSearchFood_Click(object sender, EventArgs e)
         {
@@ -281,7 +300,35 @@ namespace GUI_QuanLyCH
                 MessageBox.Show("Có lỗi khi xoá bàn!");
             }
         }
+        private void btnAddCategory_Click(object sender, EventArgs e)
+        {
+            string name = txbCategoryName.Text;
 
+            if (CategoryDAL.Instance.InsertCategory(name))
+            {
+                MessageBox.Show("Thêm danh mục thành công");
+                LoadListCategory();
+            }
+            else
+            {
+                MessageBox.Show("Có lỗi khi thêm danh mục!");
+            }
+        }
+
+        private void btnDeleteCategory_Click(object sender, EventArgs e)
+        {
+            string name = txbCategoryName.Text;
+
+            if (CategoryDAL.Instance.DeleteCategory(name))
+            {
+                MessageBox.Show("Xoá danh mục thành công");
+                LoadListCategory();
+            }
+            else
+            {
+                MessageBox.Show("Có lỗi khi xoá danh mục!");
+            }
+        }
 
         private void txbFoodID_TextChage(object sender, EventArgs e)
         {
@@ -333,5 +380,7 @@ namespace GUI_QuanLyCH
             remove { updateFood -= value; }
         }
         #endregion
+
+
     }
 }

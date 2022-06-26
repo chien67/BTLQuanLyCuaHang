@@ -43,5 +43,21 @@ namespace DAL_QuanLyCH
             }
             return category;
         }
+        public bool InsertCategory(string name)
+        {
+            string query = string.Format("insert dbo.FoodCategory ( name )Values ( N'{0}')", name);
+
+            int result = DataProvider.Instance.ExecuteNonQuery(query);
+
+            return result > 0;
+        }
+        public bool DeleteCategory(string name)
+        {
+            string query = string.Format("delete FoodCategory where name = N'{0}'", name);
+
+            int result = DataProvider.Instance.ExecuteNonQuery(query);
+
+            return result > 0;
+        }
     }
 }
