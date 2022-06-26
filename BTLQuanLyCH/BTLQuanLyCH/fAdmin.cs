@@ -179,30 +179,30 @@ namespace GUI_QuanLyCH
         {
             if (dtgvFood.SelectedCells.Count > 0)
             {
-                try
-                {
-                    int id = (int)dtgvFood.SelectedCells[0].OwningRow.Cells["CategoryID"].Value;
+                    int id = dtgvFood.SelectedCells[0].OwningRow.Cells["CategoryID"].Value==null?
+                        0:
+
+                    int.Parse(dtgvFood.SelectedCells[0].OwningRow.Cells["CategoryID"].Value.ToString());
 
                     Category category = CategoryDAL.Instance.GetCategoryByID(id);
-                    cbfFoodCategory.SelectedItem = category;
-
-                    int index = -1;
-                    int i = 0;
-                    foreach (Category item in cbfFoodCategory.Items)
+                    if (category != null)
                     {
-                        if (item.ID == category.ID)
-                        {
-                            index = i;
-                            break;
-                        }
-                        i++;
-                    }
-                    cbfFoodCategory.SelectedIndex = index;
-                }
-                catch
-                {
 
-                }
+                        cbfFoodCategory.SelectedItem = category;
+
+                        int index = -1;
+                        int i = 0;
+                        foreach (Category item in cbfFoodCategory.Items)
+                        {
+                            if (item.ID == category.ID)
+                            {
+                                index = i;
+                                break;
+                            }
+                            i++;
+                        }
+                        cbfFoodCategory.SelectedIndex = index;
+                    }
             }
 
         }
@@ -292,12 +292,6 @@ namespace GUI_QuanLyCH
             add { updateFood += value; }
             remove { updateFood -= value; }
         }
-
-
-
-
         #endregion
-
-
     }
 }

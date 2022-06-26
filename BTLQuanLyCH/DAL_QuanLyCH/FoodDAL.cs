@@ -36,7 +36,7 @@ namespace DAL_QuanLyCH
         public List<Food> GetListFood()
         {
             List<Food> list = new List<Food>();
-            string query = "select  * from Food";
+            string query = "select * from Food";
 
             DataTable data = DataProvider.Instance.ExecuteQuery(query);
 

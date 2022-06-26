@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace GUI_QuanLyCH
     {
         private Account loginAccount;
 
-        public Account LoginAccount 
+        public Account LoginAccount
         {
             get { return loginAccount; }
             set { loginAccount = value; ChangeAccount(loginAccount.Type); }
@@ -86,7 +87,7 @@ namespace GUI_QuanLyCH
                 lsvBill.Items.Add(lsvItem);
             }
             CultureInfo culture = new CultureInfo("vi-VN");
-            txbTotalPrice.Text = totalPrice.ToString("c",culture);
+            txbTotalPrice.Text = totalPrice.ToString("c", culture);
         }
         void LoadComboBoxTable(ComboBox cb)
         {
@@ -141,13 +142,13 @@ namespace GUI_QuanLyCH
             LoadFoodListByCategoryID((cbCategory.SelectedItem as Category).ID);
             if (lsvBill.Tag != null)
                 ShowBill((lsvBill.Tag as Table).ID);
-            LoadTable();  
+            LoadTable();
         }
 
         private void F_InsertFood(object sender, EventArgs e)
         {
             LoadFoodListByCategoryID((cbCategory.SelectedItem as Category).ID);
-            if(lsvBill.Tag != null)
+            if (lsvBill.Tag != null)
                 ShowBill((lsvBill.Tag as Table).ID);
         }
 
@@ -168,7 +169,7 @@ namespace GUI_QuanLyCH
         {
             Table table = lsvBill.Tag as Table;
 
-            if(table == null)
+            if (table == null)
             {
                 MessageBox.Show("Hãy chọn bàn");
             }
@@ -191,17 +192,39 @@ namespace GUI_QuanLyCH
         }
         private void btnCheckOut_Click(object sender, EventArgs e)
         {
-            Table table = lsvBill.Tag as Table ;
+            Table table = lsvBill.Tag as Table;
 
-            int idBill = BillDAL.Instance.GetUncheckBillIDByTableID (table.ID);
+            int idBill = BillDAL.Instance.GetUncheckBillIDByTableID(table.ID);
+
             int discount = (int)nmDiscount.Value;
 
-            double totalPrice = Convert.ToDouble(txbTotalPrice.Text.Split(',')[0]);
+            //Lấy từ màn hình ra chuỗi "600.000,123 đ"
+            string s = txbTotalPrice.Text;
+
+            //Convert "600.000,123 đ" => "600.000,123"
+            string str1 = s.Split(' ')[0];
+
+            //Convert "600.000,123" => "600000.123"
+            string str2 = str1.Replace(".", "").Replace(',', '.');
+
+            //Lấy số total price trên màn hình
+            double totalPrice = Convert.ToDouble(str2);
+
+            //Tính tổng tiền cần thanh toán
             double finalTotalPrice = totalPrice - (totalPrice / 100) * discount;
 
             if (idBill != -1)
             {
-                if (MessageBox.Show(string.Format("Bạn có chắc muốn thanh toán bàn {0}\n Tổng tiền - (Tổng tiền / 100) x Giảm giá\n => {1} - ({1} / 100) x {2} = {3}", table.Name, totalPrice, discount, finalTotalPrice), "Thông báo", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
+                string text = string.Format("Bạn có chắc muốn thanh toán {0}\nTổng tiền - (Tổng tiền / 100) x Giảm giá\n=> {1} - ({1} / 100) x {2} = {3}",
+                    table.Name,
+                    totalPrice.Pretty(),
+                    discount,
+                    finalTotalPrice.Pretty());
+
+                if (MessageBox.Show(
+                    text,
+                    "Thông báo",
+                    MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
                     BillDAL.Instance.CheckOut(idBill, discount, (float)finalTotalPrice);
                     ShowBill(table.ID);
@@ -222,5 +245,20 @@ namespace GUI_QuanLyCH
         }
         #endregion
 
+    }
+
+    public static class StringExtensions
+    {
+
+        /// <summary>
+        /// Input: 600000.123
+        /// Output: 600.000,123
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        public static string Pretty(this double num)
+        {
+            return String.Format("{0:0,0.00}", num);
+        }
     }
 }

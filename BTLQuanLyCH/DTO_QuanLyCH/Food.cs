@@ -4,17 +4,16 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace DTO_QuanLyCH
 {
     public class Food
     {
             public Food(int id, string name, int category, float price)
             {
-                this.ID= id;
-                this.Name= name;
-                this.CategoryID= category;
-                this.Price= price;
+                this.ID = id;
+                this.Name = name;
+                this.CategoryID = category;
+                this.Price = price;
             }
             public Food(DataRow row)
             {
