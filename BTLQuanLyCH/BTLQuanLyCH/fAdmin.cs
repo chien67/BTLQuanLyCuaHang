@@ -19,6 +19,8 @@ namespace GUI_QuanLyCH
         BindingSource foodList = new BindingSource();
 
         BindingSource accountList = new BindingSource();
+        BindingSource tableList = new BindingSource();
+        
 
         public Account loginAccount;
         public fAdmin()
@@ -39,13 +41,18 @@ namespace GUI_QuanLyCH
         {
             dtgvFood.DataSource = foodList;
             dtgvAccount.DataSource = accountList;
+            dtgvTable.DataSource = tableList;
             LoadDateTimePickerBill();
             LoadListBillByDate(dtpkFromDate.Value, dtpkToDate.Value);
             LoadListFood();
             LoadAccount();
+            LoadListTable();
             LoadCategoryIntoCombobox(cbfFoodCategory);
+
             AddFoodBinding();
             AddAccountBinding();
+            AddTableBinding();
+
         }
         void AddAccountBinding()
         {
@@ -53,7 +60,6 @@ namespace GUI_QuanLyCH
             txbDisplayName.DataBindings.Add(new Binding("Text", dtgvAccount.DataSource, "DisplayName", true, DataSourceUpdateMode.Never));
             numericUpDown1.DataBindings.Add(new Binding("Value", dtgvAccount.DataSource, "Type", true, DataSourceUpdateMode.Never));
         }
-
         void LoadAccount()
         {
             accountList.DataSource = AccountDAL.Instance.GetListAccount();
@@ -134,25 +140,36 @@ namespace GUI_QuanLyCH
                 MessageBox.Show("Đặt lại tài khoản thất bại");
             }
         }
+        void LoadListTable()
+        {
+            tableList.DataSource = DAL_Table.Instance.GetListTable();
+        }
+        void AddTableBinding()
+        {
+            txbTableID.DataBindings.Add(new Binding("Text", dtgvTable.DataSource, "ID", true, DataSourceUpdateMode.Never));
+            txbTableName.DataBindings.Add(new Binding("Text", dtgvTable.DataSource, "Name", true, DataSourceUpdateMode.Never));
+            cbTableStatus.DataBindings.Add(new Binding("Text", dtgvTable.DataSource, "Status", true, DataSourceUpdateMode.Never));
+        }
         #endregion
 
         #region events
+        private void btnViewBill_Click(object sender, EventArgs e)
+        {
+            LoadListBillByDate(dtpkFromDate.Value, dtpkToDate.Value);
+        }
         private void btnAddAccount_Click(object sender, EventArgs e)
         {
             string userName = txbUserName.Text;
             string displayName = txbDisplayName.Text;
             int type = (int)numericUpDown1.Value;
-
             AddAccount(userName,displayName,type);
         }
-
         private void btnDeleteccount_Click(object sender, EventArgs e)
         {
             string userName = txbUserName.Text;
 
             DeleteAccount(userName);
         }
-
         private void btnEditAccount_Click(object sender, EventArgs e)
         {
             string userName = txbUserName.Text;
@@ -175,38 +192,6 @@ namespace GUI_QuanLyCH
         {
             foodList.DataSource = SearchFoodByName(txbSearchFoodName.Text);
         }
-        private void txbFoodID_TextChage(object sender, EventArgs e)
-        {
-            if (dtgvFood.SelectedCells.Count > 0)
-            {
-                    int id = dtgvFood.SelectedCells[0].OwningRow.Cells["CategoryID"].Value==null?
-                        0:
-
-                    int.Parse(dtgvFood.SelectedCells[0].OwningRow.Cells["CategoryID"].Value.ToString());
-
-                    Category category = CategoryDAL.Instance.GetCategoryByID(id);
-                    if (category != null)
-                    {
-
-                        cbfFoodCategory.SelectedItem = category;
-
-                        int index = -1;
-                        int i = 0;
-                        foreach (Category item in cbfFoodCategory.Items)
-                        {
-                            if (item.ID == category.ID)
-                            {
-                                index = i;
-                                break;
-                            }
-                            i++;
-                        }
-                        cbfFoodCategory.SelectedIndex = index;
-                    }
-            }
-
-        }
-
         private void btnAddFood_Click(object sender, EventArgs e)
         {
             string name = txbFoodName.Text;
@@ -227,7 +212,6 @@ namespace GUI_QuanLyCH
                 MessageBox.Show("Có lỗi khi thêm thức ăn!");
             }
         }
-
         private void btnEditFood_Click(object sender, EventArgs e)
         {
             string name = txbFoodName.Text;
@@ -249,7 +233,6 @@ namespace GUI_QuanLyCH
                 MessageBox.Show("Có lỗi khi sửa thức ăn!");
             }
         }
-
         private void btnDeleteFood_Click(object sender, EventArgs e)
         {
             int id = Convert.ToInt32(txbFoodID.Text);
@@ -270,9 +253,66 @@ namespace GUI_QuanLyCH
         {
             LoadListFood();
         }
-        private void btnViewBill_Click(object sender, EventArgs e)
+        private void btnAddTable_Click(object sender, EventArgs e)
         {
-            LoadListBillByDate(dtpkFromDate.Value, dtpkToDate.Value);
+            string name = txbTableName.Text;
+
+                if (DAL_Table.Instance.InsertTable(name))
+                {
+                    MessageBox.Show("Thêm bàn ăn thành công");
+                    LoadListTable();
+                }
+                else
+                {
+                    MessageBox.Show("Có lỗi khi thêm bàn!");
+                }
+        }
+        private void btnDeleteTable_Click(object sender, EventArgs e)
+        {
+            int id = Convert.ToInt32(txbTableID.Text);
+
+            if (DAL_Table.Instance.DeleteTable(id))
+            {
+                MessageBox.Show("Xoá bàn thành công");
+                LoadListTable();
+            }
+            else
+            {
+                MessageBox.Show("Có lỗi khi xoá bàn!");
+            }
+        }
+
+
+        private void txbFoodID_TextChage(object sender, EventArgs e)
+        {
+            if (dtgvFood.SelectedCells.Count > 0)
+            {
+                int id = dtgvFood.SelectedCells[0].OwningRow.Cells["CategoryID"].Value == null ?
+                    0 :
+
+                int.Parse(dtgvFood.SelectedCells[0].OwningRow.Cells["CategoryID"].Value.ToString());
+
+                Category category = CategoryDAL.Instance.GetCategoryByID(id);
+                if (category != null)
+                {
+
+                    cbfFoodCategory.SelectedItem = category;
+
+                    int index = -1;
+                    int i = 0;
+                    foreach (Category item in cbfFoodCategory.Items)
+                    {
+                        if (item.ID == category.ID)
+                        {
+                            index = i;
+                            break;
+                        }
+                        i++;
+                    }
+                    cbfFoodCategory.SelectedIndex = index;
+                }
+            }
+
         }
         private event EventHandler insertFood;
         public event EventHandler InsertFood
