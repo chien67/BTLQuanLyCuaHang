@@ -5,12 +5,16 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DAL_QuanLyCH;
 using DTO_QuanLyCH;
+using System.Data.SqlClient;
+using System.Data.Common;
+
 namespace GUI_QuanLyCH
 {
     public partial class fTableManager : Form
@@ -81,7 +85,7 @@ namespace GUI_QuanLyCH
             {
                 ListViewItem lsvItem = new ListViewItem(item.FoodName.ToString());
                 lsvItem.SubItems.Add(item.Count.ToString());
-                lsvItem.SubItems.Add(item.Count.ToString());
+                lsvItem.SubItems.Add(item.Price.ToString());
                 lsvItem.SubItems.Add(item.TotalPrice.ToString());
                 totalPrice += item.TotalPrice;
                 lsvBill.Items.Add(lsvItem);
@@ -95,11 +99,12 @@ namespace GUI_QuanLyCH
             cb.DisplayMember = "Name";
         }
         #endregion
-
+        int currentTableId = 0;
         #region Event
         private void Btn_Click(object sender, EventArgs e)
         {
             int tableID = ((sender as Button).Tag as Table).ID;
+            this.currentTableId = tableID;
             lsvBill.Tag = (sender as Button).Tag;
             ShowBill(tableID);
         }
@@ -192,6 +197,29 @@ namespace GUI_QuanLyCH
             ShowBill(table.ID);
             LoadTable();
         }
+        private void printBill(double total)
+        {
+            string bill = "";
+            bill += "\t\tHOÁ ĐƠN THANH TOÁN\n";
+            bill += "\t     Đại Học Bách Khoa Hà Nội\n\n";
+            bill += "  Date: "+DateTime.Now.ToString("dd-MM-yyyy HH:mm");
+            bill += "\n  Description: ";
+            bill += "\n       Name\t\tSL\t\t Thành Tiền";
+            bill += "\n  =============================================";
+            string query = "select f.name, bi.count, f.price, f.price*bi.count AS totalPrice from dbo.BillInfo AS bi, dbo.Bill AS b, dbo.Food AS f where bi.idBill = b.id and bi.idFood = f.id and b.status = 0 and b.idTable =" + this.currentTableId;
+
+            DataTable data = DataProvider.Instance.ExecuteQuery(query);
+
+            foreach (DataRow item in data.Rows)
+            {
+                bill += "\n       " + item["name"].ToString()+"\t\t"+ item["count"].ToString() + "\t         " + item["totalPrice"].ToString();
+
+            }
+            bill += "\n  ---------------------------------------------";
+            bill += "\n  Total:\t\t\t\t"+ total;
+            bill += "\n\n\t\tXin cảm ơn!";
+            File.WriteAllText(@"C:\Users\Chien Nguyen\OneDrive\Máy tính\HoaDon.txt", bill);
+        }
         private void btnCheckOut_Click(object sender, EventArgs e)
         {
             Table table = lsvBill.Tag as Table;
@@ -217,7 +245,7 @@ namespace GUI_QuanLyCH
 
             if (idBill != -1)
             {
-                string text = string.Format("Bạn có chắc muốn thanh toán {0}\nTổng tiền - (Tổng tiền / 100) x Giảm giá\n=> {1} - ({1} / 100) x {2} = {3}",
+                string text = string.Format("Bạn có chắc muốn thanh toán {0}",
                     table.Name,
                     totalPrice.Pretty(),
                     discount,
@@ -228,6 +256,7 @@ namespace GUI_QuanLyCH
                     "Thông báo",
                     MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
+                    printBill(finalTotalPrice);
                     BillDAL.Instance.CheckOut(idBill, discount, (float)finalTotalPrice);
                     ShowBill(table.ID);
                     LoadTable();

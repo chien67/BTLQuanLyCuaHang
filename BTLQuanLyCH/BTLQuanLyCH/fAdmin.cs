@@ -199,10 +199,6 @@ namespace GUI_QuanLyCH
             ResetPass(userName);
             LoadAccount();
         }
-        private void btnShowAccount_Click(object sender, EventArgs e)
-        {
-
-        }
         private void btnShowCategory_Click(object sender, EventArgs e)
         {
             LoadListCategory();
@@ -362,6 +358,7 @@ namespace GUI_QuanLyCH
             }
 
         }
+
         private event EventHandler insertFood;
         public event EventHandler InsertFood
         {
@@ -381,5 +378,7 @@ namespace GUI_QuanLyCH
             remove { updateFood -= value; }
         }
         #endregion
+
+
     }
 }
