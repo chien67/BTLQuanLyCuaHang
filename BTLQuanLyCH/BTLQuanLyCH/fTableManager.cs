@@ -179,6 +179,7 @@ namespace GUI_QuanLyCH
             if (table == null)
             {
                 MessageBox.Show("Hãy chọn bàn");
+                return;
             }
 
             int idBill = BillDAL.Instance.GetUncheckBillIDByTableID(table.ID);
@@ -245,7 +246,7 @@ namespace GUI_QuanLyCH
 
             if (idBill != -1)
             {
-                string text = string.Format("Bạn có chắc muốn thanh toán {0}",
+                string text = string.Format("Bạn có chắc thanh toán {0} ?",
                     table.Name,
                     totalPrice.Pretty(),
                     discount,
@@ -260,6 +261,7 @@ namespace GUI_QuanLyCH
                     BillDAL.Instance.CheckOut(idBill, discount, (float)finalTotalPrice);
                     ShowBill(table.ID);
                     LoadTable();
+                    Process.Start(@"C:\Users\Chien Nguyen\OneDrive\Máy tính\HoaDon.txt");
                 }
             }
         }
